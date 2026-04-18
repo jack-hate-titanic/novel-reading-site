@@ -1,0 +1,80 @@
+.page {
+  display: grid;
+  gap: 28px;
+  margin: 0 auto;
+  max-width: 1100px;
+}
+
+.hero {
+  padding: 40px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.mode {
+  margin: 0 0 8px;
+  color: var(--gold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.75rem, 7vw, 4.8rem);
+}
+
+.subtitle,
+.description {
+  max-width: 60ch;
+  color: var(--ink-soft);
+}
+
+.cta {
+  display: inline-flex;
+  margin-top: 12px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--olive);
+  color: var(--paper);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 24px;
+}
+
+.panel {
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.chapterList {
+  display: grid;
+  gap: 16px;
+  padding-left: 20px;
+}
+
+.chapterList a {
+  display: grid;
+  gap: 6px;
+}
+
+.chapterList span {
+  color: var(--ink-soft);
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero,
+  .panel {
+    padding: 24px;
+  }
+}
