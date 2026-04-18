@@ -8,6 +8,14 @@ const rawRoot = path.join(process.cwd(), "content", "raw");
 const readRaw = (segments: string[]) =>
   fs.readFileSync(path.join(rawRoot, ...segments), "utf8");
 
+const toChapterPreview = (chapter: Chapter) => ({
+  slug: chapter.slug,
+  bookSlug: chapter.bookSlug,
+  title: chapter.title,
+  order: chapter.order,
+  summary: chapter.summary,
+});
+
 const chapterFixtures: Chapter[] = [
   {
     slug: "chapter-1",
@@ -55,7 +63,7 @@ export function getBooks(): Book[] {
       readingModeLabel: "English First",
       chapters: chapterFixtures
         .filter((chapter) => chapter.bookSlug === "half-demon-si-teng")
-        .map(({ segments, ...chapter }) => chapter),
+        .map(toChapterPreview),
     },
     {
       slug: "spring-and-autumn",
@@ -69,7 +77,7 @@ export function getBooks(): Book[] {
       readingModeLabel: "English First",
       chapters: chapterFixtures
         .filter((chapter) => chapter.bookSlug === "spring-and-autumn")
-        .map(({ segments, ...chapter }) => chapter),
+        .map(toChapterPreview),
     },
   ];
 }
