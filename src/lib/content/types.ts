@@ -31,3 +31,10 @@ export type ParsedChapter = {
   title: string;
   segments: ReaderSegment[];
 };
+
+export type SplitChapter = {
+  order: number;
+  slug: string;
+  title: string;
+  markdown: string;
+};

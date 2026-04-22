@@ -1,6 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
-import { parseBilingualChapter } from "@/lib/content/parser";
+import {
+  parseBilingualChapter,
+  splitBilingualChapterCollection,
+} from "@/lib/content/parser";
 import type { Book, Chapter } from "@/lib/content/types";
 
 const rawRoot = path.join(process.cwd(), "content", "raw");
@@ -16,6 +19,39 @@ const toChapterPreview = (chapter: Chapter) => ({
   summary: chapter.summary,
 });
 
+const springAndAutumnSummaries: Record<string, string> = {
+  "chapter-01": "Beauty, power, and desire collide in the story's legendary opening.",
+  "chapter-02": "Court politics and royal obsession turn the inner palace into a storm.",
+  "chapter-03": "Romance, legend, and narrative irony reshape an old tale of beauty.",
+  "chapter-04": "Beacon fires, vanity, and spectacle push royal power toward disaster.",
+  "chapter-05": "The Spring and Autumn era begins as order starts to fracture.",
+  "chapter-06": "Family loyalty bends under pressure, proving even mothers can fail.",
+  "chapter-07": "Promises in life and death lead to one of the era's most famous encounters.",
+  "chapter-08": "Paternal authority proves just as fragile as every other bond.",
+  "chapter-09": "Excess and indulgence rot power from the inside out.",
+  "chapter-10": "A strange attachment to cranes reveals the absurdity of aristocratic taste.",
+  "chapter-11": "As the Zhou center weakens, the old political order begins to crack.",
+  "chapter-12": "Blood ties and shared hardship fail to guarantee real trust.",
+  "chapter-13": "Chu builds alliances in the south and starts changing the regional balance.",
+  "chapter-14": "Compromise collapses when one country can no longer live under two systems.",
+};
+
+const springAndAutumnChapters: Chapter[] = [
+  readRaw(["spring-and-autumn", "chapter-01.md"]),
+  readRaw(["spring-and-autumn", "chapter-11-20.md"]),
+]
+  .flatMap((markdown) => splitBilingualChapterCollection(markdown))
+  .map((chapter) => ({
+    slug: chapter.slug,
+    bookSlug: "spring-and-autumn",
+    title: chapter.title,
+    order: chapter.order,
+    summary:
+      springAndAutumnSummaries[chapter.slug] ??
+      `A study-friendly bilingual reading of ${chapter.title}.`,
+    segments: parseBilingualChapter(chapter.markdown).segments,
+  }));
+
 const chapterFixtures: Chapter[] = [
   {
     slug: "chapter-1",
@@ -28,25 +64,26 @@ const chapterFixtures: Chapter[] = [
     ).segments,
   },
   {
-    slug: "chapter-01",
-    bookSlug: "spring-and-autumn",
-    title: "Chapter 1: The Fairy Maiden",
-    order: 1,
-    summary: "A witty historical opening that frames beauty, power, and early Zhou drama.",
+    slug: "chapter-2",
+    bookSlug: "half-demon-si-teng",
+    title: "Chapter 2",
+    order: 2,
+    summary: "An Man steps into a trap, old secrets return, and the night turns violent.",
     segments: parseBilingualChapter(
-      readRaw(["spring-and-autumn", "chapter-01.md"]),
+      readRaw(["half-demon-si-teng", "chapter-2.md"]),
     ).segments,
   },
   {
-    slug: "chapter-11-20",
-    bookSlug: "spring-and-autumn",
-    title: "Chapters 11-20",
-    order: 11,
-    summary: "A later historical arc about central authority, alliances, and political instability.",
+    slug: "chapter-3",
+    bookSlug: "half-demon-si-teng",
+    title: "Chapter 3",
+    order: 3,
+    summary: "A mountain-road escape turns into an ambush, and Qin Fang is thrown over the cliff.",
     segments: parseBilingualChapter(
-      readRaw(["spring-and-autumn", "chapter-11-20.md"]),
+      readRaw(["half-demon-si-teng", "chapter-3.md"]),
     ).segments,
   },
+  ...springAndAutumnChapters,
 ];
 
 export function getBooks(): Book[] {
@@ -57,7 +94,7 @@ export function getBooks(): Book[] {
       subtitle: "A cold, cinematic modern fantasy for close English reading.",
       author: "Wei Yu",
       description:
-        "An English-first reading edition built from the current bilingual Chapter 1 source.",
+        "An English-first reading edition built from the current bilingual Si Teng chapter collection.",
       coverTheme: "mist",
       tags: ["Modern Fantasy", "Atmospheric", "Dialogue"],
       readingModeLabel: "English First",

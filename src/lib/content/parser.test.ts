@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { parseBilingualChapter } from "@/lib/content/parser";
+import {
+  parseBilingualChapter,
+  splitBilingualChapterCollection,
+} from "@/lib/content/parser";
 
 const sampleMarkdown = `
 # Sample Chapter
@@ -31,5 +34,43 @@ describe("parseBilingualChapter", () => {
       grammarNotes: ["语法标记：并列句。", "难点拆解：测试说明。"],
       phrases: ["first phrase：第一个短语", "second phrase：第二个短语"],
     });
+  });
+
+  it("splits a combined bilingual collection into individual chapter entries", () => {
+    const collectionMarkdown = `
+# Combined Book
+
+说明：
+- 示例
+
+## 第一章 天仙妹妹
+## Chapter 1: The Fairy Maiden
+
+第一章第一句。
+First line of chapter one.
+
+## 第二章 后宫风暴
+## Chapter 2: Turmoil in the Inner Palace
+
+第二章第一句。
+First line of chapter two.
+`;
+
+    const result = splitBilingualChapterCollection(collectionMarkdown);
+
+    expect(result).toEqual([
+      {
+        order: 1,
+        slug: "chapter-01",
+        title: "Chapter 1: The Fairy Maiden",
+        markdown: "第一章第一句。\nFirst line of chapter one.",
+      },
+      {
+        order: 2,
+        slug: "chapter-02",
+        title: "Chapter 2: Turmoil in the Inner Palace",
+        markdown: "第二章第一句。\nFirst line of chapter two.",
+      },
+    ]);
   });
 });

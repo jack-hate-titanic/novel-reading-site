@@ -1,4 +1,8 @@
-import type { ParsedChapter, ReaderSegment } from "@/lib/content/types";
+import type {
+  ParsedChapter,
+  ReaderSegment,
+  SplitChapter,
+} from "@/lib/content/types";
 
 type PendingLine = {
   language: "chinese" | "english";
@@ -30,6 +34,8 @@ const isGrammarDetail = (line: string) =>
 const isPhraseDetail = (line: string) => line.startsWith("- ");
 const hasChinese = (line: string) => /[\u4e00-\u9fff]/.test(line);
 const hasEnglish = (line: string) => /[A-Za-z]/.test(line);
+const chapterHeadingPattern = /^##\s+第.+章/;
+const englishChapterHeadingPattern = /^##\s+Chapter\s+(\d+)(?::\s*(.+))?$/;
 
 const detectLanguage = (line: string): PendingLine["language"] | null => {
   if (hasChinese(line) && !hasEnglish(line)) {
@@ -59,6 +65,8 @@ const appendSegment = (
     phrases: [],
   });
 };
+
+const toChapterSlug = (order: number) => `chapter-${String(order).padStart(2, "0")}`;
 
 export function parseBilingualChapter(markdown: string): ParsedChapter {
   const lines = markdown
@@ -137,4 +145,63 @@ export function parseBilingualChapter(markdown: string): ParsedChapter {
   }
 
   return { title, segments };
+}
+
+export function splitBilingualChapterCollection(markdown: string): SplitChapter[] {
+  const lines = markdown.split(/\r?\n/);
+  const chapters: SplitChapter[] = [];
+  let current:
+    | {
+        order: number;
+        title: string;
+        bodyLines: string[];
+      }
+    | null = null;
+
+  const pushCurrent = () => {
+    if (!current) {
+      return;
+    }
+
+    chapters.push({
+      order: current.order,
+      slug: toChapterSlug(current.order),
+      title: current.title,
+      markdown: current.bodyLines.join("\n").trim(),
+    });
+  };
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index].trim();
+
+    if (chapterHeadingPattern.test(line)) {
+      pushCurrent();
+
+      const nextLine = lines[index + 1]?.trim() ?? "";
+      const englishMatch = nextLine.match(englishChapterHeadingPattern);
+
+      if (!englishMatch) {
+        current = null;
+        continue;
+      }
+
+      current = {
+        order: Number.parseInt(englishMatch[1], 10),
+        title: nextLine.replace(/^##\s+/, ""),
+        bodyLines: [],
+      };
+      index += 1;
+      continue;
+    }
+
+    if (!current) {
+      continue;
+    }
+
+    current.bodyLines.push(line);
+  }
+
+  pushCurrent();
+
+  return chapters.filter((chapter) => chapter.markdown.length > 0);
 }
