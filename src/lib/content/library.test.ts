@@ -57,6 +57,7 @@ describe("content library", () => {
   it("loads Spring and Autumn as individual chapters instead of merged chapter ranges", () => {
     const spring = getBookBySlug("spring-and-autumn");
     const chapterTwelve = getChapterBySlugs("spring-and-autumn", "chapter-12");
+    const chapterTwenty = getChapterBySlugs("spring-and-autumn", "chapter-20");
 
     expect(spring?.chapters.map((chapter) => chapter.slug)).toEqual([
       "chapter-01",
@@ -73,8 +74,16 @@ describe("content library", () => {
       "chapter-12",
       "chapter-13",
       "chapter-14",
+      "chapter-15",
+      "chapter-16",
+      "chapter-17",
+      "chapter-18",
+      "chapter-19",
+      "chapter-20",
     ]);
     expect(chapterTwelve?.title).toBe("Chapter 12: Passing Themselves Off as the Central Army");
     expect(chapterTwelve?.segments[0].english).toContain("History has told us time and again");
+    expect(chapterTwenty?.title).toBe("Chapter 20: Wives Are Even Less Reliable");
+    expect(chapterTwenty?.segments[0].english).toContain("While the Zheng-Lu allied army was attacking Song");
   });
 });

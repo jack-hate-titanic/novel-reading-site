@@ -34,6 +34,12 @@ const springAndAutumnSummaries: Record<string, string> = {
   "chapter-12": "Blood ties and shared hardship fail to guarantee real trust.",
   "chapter-13": "Chu builds alliances in the south and starts changing the regional balance.",
   "chapter-14": "Compromise collapses when one country can no longer live under two systems.",
+  "chapter-15": "Power proves unable to keep beauty safely, and desire turns ruinous again.",
+  "chapter-16": "Kong Fujia tries a clever political maneuver in a court full of danger.",
+  "chapter-17": "Charm becomes a weapon again as handsome men bring trouble of their own.",
+  "chapter-18": "Moral duty and political survival collide in a painful human dilemma.",
+  "chapter-19": "Alliances fray as hard lessons show how unreliable friends can be.",
+  "chapter-20": "Marriage, loyalty, and statecraft tangle together until wives prove least reliable of all.",
 };
 
 const springAndAutumnChapters: Chapter[] = [
