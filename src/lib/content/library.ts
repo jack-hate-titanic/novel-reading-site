@@ -40,11 +40,22 @@ const springAndAutumnSummaries: Record<string, string> = {
   "chapter-18": "Moral duty and political survival collide in a painful human dilemma.",
   "chapter-19": "Alliances fray as hard lessons show how unreliable friends can be.",
   "chapter-20": "Marriage, loyalty, and statecraft tangle together until wives prove least reliable of all.",
+  "chapter-21": "Succession and kinship collide as the age asks whether brothers can really be trusted.",
+  "chapter-22": "Political legitimacy gets reframed through a new reading of the Duke of Zhou.",
+  "chapter-23": "Family affection deepens into danger as sibling bonds grow too entangled.",
+  "chapter-24": "A seemingly simple melon case turns into a memorable political murder story.",
+  "chapter-25": "The famous bond of Guan and Bao is retold beside Guan Zhong's most human retreat.",
+  "chapter-26": "Bao Shuya's patience and strategy make room for one of history's great statesmen.",
+  "chapter-27": "Qi rises under a new political sun as momentum shifts across the realm.",
+  "chapter-28": "The ideas of Master Guan are laid out as a durable system of statecraft.",
+  "chapter-29": "Cao Gui's reflections on war turn one battle into a lasting military classic.",
+  "chapter-30": "Guan Zhong's wealth-building policies show how governance begins with enriching the people.",
 };
 
 const springAndAutumnChapters: Chapter[] = [
   readRaw(["spring-and-autumn", "chapter-01.md"]),
   readRaw(["spring-and-autumn", "chapter-11-20.md"]),
+  readRaw(["spring-and-autumn", "chapter-21-30.md"]),
 ]
   .flatMap((markdown) => splitBilingualChapterCollection(markdown))
   .map((chapter) => ({
