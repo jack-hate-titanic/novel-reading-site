@@ -17,6 +17,7 @@ const toChapterPreview = (chapter: Chapter) => ({
   title: chapter.title,
   order: chapter.order,
   summary: chapter.summary,
+  segmentCount: chapter.segments.length,
 });
 
 const springAndAutumnSummaries: Record<string, string> = {
@@ -69,7 +70,43 @@ const springAndAutumnChapters: Chapter[] = [
     segments: parseBilingualChapter(chapter.markdown).segments,
   }));
 
+const nuanNuanChapterSummaries: Record<number, string> = {
+  1: "Two strangers meet at a cross-strait summer camp in Beijing, and a half-joking false name turns into something more.",
+  2: "A long day touring the Forbidden City, Beihai, and Snack Street ends with a sharp, fiery dinner and a quietly captured smile.",
+  3: "A grueling climb up the Great Wall takes the group from Juyong Pass to the North Eighth Tower, with stories of Meng Jiangnü along the way.",
+  4: "A morning lecture on Chinese language and an afternoon of Beijing pedicabs, hutong life, and a chance encounter with a hidden bat-shaped pond.",
+  5: "A morning of fermented bean juice, a lively class on simplified Chinese, and an afternoon exploring the Temple of Heaven and Da Zha Lan's old shops.",
+  6: "A day at Peking University and the Summer Palace, from Weiming Lake and the Echo Wall to a fortune-teller's cryptic reading on Suzhou Street.",
+  7: "Ji Xiaolan's tragic love story, the Lama Temple's giant Buddha, a farewell talent show, and the night before departure from Beijing.",
+  8: "The journey home: flight security, a hidden scroll, and unpacking Nuannuan's gift in Taiwan.",
+  9: "Adjusting to life back in Taiwan — emails with Nuannuan, a job offer, and a move to Hsinchu.",
+  10: "Life at a new job, emails across the strait, and a year of longing before a work assignment in Suzhou.",
+  11: "From Suzhou, a phone call to Nuannuan leads to a birthday surprise and the decision to go to Beijing.",
+  12: "The flight to Beijing, a snowy reunion, and a warm dinner of lamb hotpot at Donglaishun.",
+  13: "A day of snow, red leaves, and the quiet intimacy of being together again in Beijing.",
+  14: "A work trip to Harbin: Russian architecture, street food, and a night train conversation about the future.",
+  15: "The last full day in Beijing — visiting the Forbidden City alone, an evening at Lao She Teahouse, and a farewell leaf inscribed with poetry.",
+  16: "The final goodbye at the airport, a last glimpse of Nuannuan's car in the snow, and the echo of their first meeting.",
+};
+
+const nuanNuanOrders = Object.keys(nuanNuanChapterSummaries)
+  .map((key) => Number.parseInt(key, 10))
+  .sort((a, b) => a - b);
+
+const nuanNuanChapters: Chapter[] = nuanNuanOrders.map((order) => {
+  const slug = `chapter-${String(order).padStart(2, "0")}`;
+  return {
+    slug,
+    bookSlug: "nuan-nuan",
+    title: `Chapter ${order}`,
+    order,
+    summary: nuanNuanChapterSummaries[order],
+    segments: parseBilingualChapter(readRaw(["nuan-nuan", `${slug}.md`])).segments,
+  };
+});
+
 const chapterFixtures: Chapter[] = [
+  ...nuanNuanChapters,
   {
     slug: "chapter-1",
     bookSlug: "half-demon-si-teng",
@@ -105,6 +142,20 @@ const chapterFixtures: Chapter[] = [
 
 export function getBooks(): Book[] {
   return [
+    {
+      slug: "nuan-nuan",
+      title: "Nuannuan",
+      subtitle: "A quiet, tender Taiwanese romance retold for English readers.",
+      author: "Cai Zhiheng (痞子蔡)",
+      description:
+        "An English-first reading edition of Cai Zhiheng's bilingual novella about a brief, warm encounter between two students at a cross-strait summer camp.",
+      coverTheme: "mist",
+      tags: ["Romance", "Contemporary", "Taiwan"],
+      readingModeLabel: "English First",
+      chapters: chapterFixtures
+        .filter((chapter) => chapter.bookSlug === "nuan-nuan")
+        .map(toChapterPreview),
+    },
     {
       slug: "half-demon-si-teng",
       title: "Half-Demon Si Teng",

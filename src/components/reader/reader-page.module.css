@@ -40,6 +40,12 @@
   margin-top: 20px;
 }
 
+.savedIndicator {
+  margin-top: 10px;
+  color: var(--olive);
+  font-size: 0.85rem;
+}
+
 .content {
   display: grid;
   gap: 18px;

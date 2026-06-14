@@ -1,10 +1,9 @@
 import Link from "next/link";
 import type { Book } from "@/lib/content/types";
+import { BookDetailProgress } from "@/components/reading-progress/book-detail-progress";
 import styles from "./book-detail-page.module.css";
 
 export function BookDetailPage({ book }: { book: Book }) {
-  const firstChapter = book.chapters[0];
-
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
@@ -12,12 +11,7 @@ export function BookDetailPage({ book }: { book: Book }) {
         <h1>{book.title}</h1>
         <p className={styles.subtitle}>{book.subtitle}</p>
         <p className={styles.description}>{book.description}</p>
-        <Link
-          className={styles.cta}
-          href={`/read/${book.slug}/${firstChapter.slug}`}
-        >
-          Begin reading
-        </Link>
+        <BookDetailProgress book={book} />
       </section>
 
       <section className={styles.grid}>

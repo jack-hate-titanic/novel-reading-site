@@ -15,6 +15,15 @@ export type Chapter = {
   segments: ReaderSegment[];
 };
 
+export type ChapterPreview = {
+  slug: string;
+  bookSlug: string;
+  title: string;
+  order: number;
+  summary: string;
+  segmentCount: number;
+};
+
 export type Book = {
   slug: string;
   title: string;
@@ -24,7 +33,7 @@ export type Book = {
   coverTheme: "mist" | "bronze";
   tags: string[];
   readingModeLabel: string;
-  chapters: Omit<Chapter, "segments">[];
+  chapters: ChapterPreview[];
 };
 
 export type ParsedChapter = {

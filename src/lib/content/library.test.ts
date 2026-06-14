@@ -13,6 +13,7 @@ describe("content library", () => {
     const springLater = getChapterBySlugs("spring-and-autumn", "chapter-11");
 
     expect(books.map((book) => book.slug)).toEqual([
+      "nuan-nuan",
       "half-demon-si-teng",
       "spring-and-autumn",
     ]);
@@ -52,6 +53,16 @@ describe("content library", () => {
     expect(chapterThree?.segments[0].english).toContain(
       "driving mountain roads at night was dangerous",
     );
+  });
+
+  it("loads Nuannuan chapter 1 into the book navigation and reader content", () => {
+    const nuanNuan = getBookBySlug("nuan-nuan");
+    const chapterOne = getChapterBySlugs("nuan-nuan", "chapter-01");
+
+    expect(nuanNuan?.chapters.map((chapter) => chapter.slug)).toContain("chapter-01");
+    expect(chapterOne?.segments.length).toBeGreaterThan(20);
+    expect(chapterOne?.segments[0].chinese).toContain("我叫暖暖");
+    expect(chapterOne?.segments[0].english).toContain("I'm Nuannuan");
   });
 
   it("loads Spring and Autumn as individual chapters instead of merged chapter ranges", () => {

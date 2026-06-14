@@ -31,15 +31,6 @@
   color: var(--ink-soft);
 }
 
-.cta {
-  display: inline-flex;
-  margin-top: 12px;
-  padding: 12px 20px;
-  border-radius: 999px;
-  background: var(--olive);
-  color: var(--paper);
-}
-
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);

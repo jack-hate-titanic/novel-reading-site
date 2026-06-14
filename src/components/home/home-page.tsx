@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Book } from "@/lib/content/types";
+import { BookCardWithProgress } from "@/components/reading-progress/book-card-with-progress";
 import styles from "./home-page.module.css";
 
 export function HomePage({ books }: { books: Book[] }) {
@@ -22,21 +23,7 @@ export function HomePage({ books }: { books: Book[] }) {
 
       <section className={styles.books}>
         {books.map((book) => (
-          <article
-            key={book.slug}
-            className={styles.card}
-            data-theme={book.coverTheme}
-          >
-            <p className={styles.meta}>{book.readingModeLabel}</p>
-            <h2>{book.title}</h2>
-            <p className={styles.subtitle}>{book.subtitle}</p>
-            <div className={styles.tags}>
-              {book.tags.map((tag) => (
-                <span key={tag}>{tag}</span>
-              ))}
-            </div>
-            <Link href={`/books/${book.slug}`}>Open book</Link>
-          </article>
+          <BookCardWithProgress key={book.slug} book={book} />
         ))}
       </section>
 

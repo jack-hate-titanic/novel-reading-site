@@ -50,49 +50,6 @@
   gap: 24px;
 }
 
-.card {
-  padding: 28px;
-  border: 1px solid var(--line);
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.42);
-}
-
-.card[data-theme="mist"] {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(227, 233, 238, 0.9));
-}
-
-.card[data-theme="bronze"] {
-  background:
-    linear-gradient(180deg, rgba(246, 239, 223, 0.9), rgba(223, 201, 157, 0.34));
-}
-
-.meta {
-  color: var(--olive);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-}
-
-.subtitle {
-  margin-top: 8px;
-  color: var(--ink-soft);
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 16px 0;
-}
-
-.tags span {
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(79, 91, 67, 0.12);
-  color: var(--olive);
-  font-size: 0.875rem;
-}
-
 .mode {
   padding: 32px;
   border-top: 1px solid var(--line);

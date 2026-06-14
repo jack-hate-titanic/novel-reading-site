@@ -1,8 +1,8 @@
 import Link from "next/link";
+import { ContinueReadingLink } from "@/components/reading-progress/continue-reading-link";
 
 const navItems = [
   { href: "/", label: "Library" },
-  { href: "/read/half-demon-si-teng/chapter-1", label: "Continue Reading" },
   { href: "/#reading-mode", label: "About Reading Mode" },
 ];
 
@@ -18,6 +18,10 @@ export function SiteHeader() {
             {item.label}
           </Link>
         ))}
+        <ContinueReadingLink
+          fallbackHref="/read/half-demon-si-teng/chapter-1"
+          fallbackLabel="Continue Reading"
+        />
       </nav>
     </header>
   );
