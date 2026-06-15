@@ -12,15 +12,32 @@ const STORAGE_KEY = "novel-reading-progress";
 
 const isBrowser = () => typeof window !== "undefined";
 
+let cachedRawProgress: string | null | undefined;
+let cachedProgress: ReadingProgressData = {};
+let cachedRecentSource: ReadingProgressData | null = null;
+let cachedRecentResult: {
+  bookSlug: string;
+  progress: BookProgress;
+} | null = null;
+
+function setCachedProgress(raw: string | null | undefined, progress: ReadingProgressData) {
+  cachedRawProgress = raw;
+  cachedProgress = progress;
+  cachedRecentSource = null;
+  cachedRecentResult = null;
+  return cachedProgress;
+}
+
 export function getStoredProgress(): ReadingProgressData {
   if (!isBrowser()) return {};
 
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return {};
-    return JSON.parse(raw) as ReadingProgressData;
+    if (raw === cachedRawProgress) return cachedProgress;
+    if (!raw) return setCachedProgress(null, {});
+    return setCachedProgress(raw, JSON.parse(raw) as ReadingProgressData);
   } catch {
-    return {};
+    return setCachedProgress(undefined, {});
   }
 }
 
@@ -31,15 +48,19 @@ export function saveBookProgress(
 ): void {
   if (!isBrowser()) return;
 
-  const progress = getStoredProgress();
-  progress[bookSlug] = {
-    lastChapterSlug: chapterSlug,
-    lastSegmentIndex: segmentIndex,
-    updatedAt: Date.now(),
+  const progress = {
+    ...getStoredProgress(),
+    [bookSlug]: {
+      lastChapterSlug: chapterSlug,
+      lastSegmentIndex: segmentIndex,
+      updatedAt: Date.now(),
+    },
   };
 
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    const raw = JSON.stringify(progress);
+    localStorage.setItem(STORAGE_KEY, raw);
+    setCachedProgress(raw, progress);
     notifyListeners();
   } catch {
     // localStorage may be full or unavailable
@@ -84,7 +105,13 @@ function notifyListeners() {
 
 if (isBrowser()) {
   window.addEventListener("storage", (e) => {
-    if (e.key === STORAGE_KEY) notifyListeners();
+    if (e.key === STORAGE_KEY) {
+      cachedRawProgress = undefined;
+      cachedProgress = {};
+      cachedRecentSource = null;
+      cachedRecentResult = null;
+      notifyListeners();
+    }
   });
 }
 
@@ -100,8 +127,14 @@ export function getMostRecentBook(): {
   progress: BookProgress;
 } | null {
   const progress = getStoredProgress();
+  if (progress === cachedRecentSource) return cachedRecentResult;
+
   const entries = Object.entries(progress);
-  if (entries.length === 0) return null;
+  if (entries.length === 0) {
+    cachedRecentSource = progress;
+    cachedRecentResult = null;
+    return cachedRecentResult;
+  }
 
   let mostRecent: { bookSlug: string; progress: BookProgress } | null = null;
   for (const [bookSlug, bp] of entries) {
@@ -109,5 +142,8 @@ export function getMostRecentBook(): {
       mostRecent = { bookSlug, progress: bp };
     }
   }
-  return mostRecent;
+
+  cachedRecentSource = progress;
+  cachedRecentResult = mostRecent;
+  return cachedRecentResult;
 }

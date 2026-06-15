@@ -25,6 +25,12 @@ describe("reading-progress", () => {
     expect(getStoredProgress()).toEqual({});
   });
 
+  it("reuses the same progress snapshot when storage has not changed", () => {
+    saveBookProgress("nuan-nuan", "chapter-01", 5);
+
+    expect(getStoredProgress()).toBe(getStoredProgress());
+  });
+
   it("saves and retrieves progress for a book", () => {
     saveBookProgress("nuan-nuan", "chapter-01", 5);
 
