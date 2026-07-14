@@ -23,7 +23,7 @@ describe("content library", () => {
     expect(springLater?.segments.length).toBeGreaterThan(10);
 
     expect(siTeng?.segments[0].english).toContain("December 2013");
-    expect(springOne?.segments[0].english).toContain("Love the realm");
+    expect(springOne?.segments[0].english).toContain("Love your kingdom");
     expect(springLater?.segments[0].english).toContain("people thrive when they move");
   });
 

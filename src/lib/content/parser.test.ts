@@ -73,4 +73,57 @@ First line of chapter two.
       },
     ]);
   });
+
+  it("treats consecutive same-language lines as standalone segments", () => {
+    const markdown = `
+# English Only
+
+First English sentence.
+Second English sentence.
+Third English sentence.
+`;
+
+    const result = parseBilingualChapter(markdown);
+
+    expect(result.segments).toHaveLength(3);
+    expect(result.segments[0]).toMatchObject({
+      chinese: "",
+      english: "First English sentence.",
+    });
+    expect(result.segments[2]).toMatchObject({
+      chinese: "",
+      english: "Third English sentence.",
+    });
+  });
+
+  it("splits a pure-English collection using solo Chapter headings", () => {
+    const collectionMarkdown = `
+# English Book
+
+## Chapter 1: The Beginning
+
+First line of chapter one.
+
+## Chapter 2: The Next Step
+
+First line of chapter two.
+`;
+
+    const result = splitBilingualChapterCollection(collectionMarkdown);
+
+    expect(result).toEqual([
+      {
+        order: 1,
+        slug: "chapter-01",
+        title: "Chapter 1: The Beginning",
+        markdown: "First line of chapter one.",
+      },
+      {
+        order: 2,
+        slug: "chapter-02",
+        title: "Chapter 2: The Next Step",
+        markdown: "First line of chapter two.",
+      },
+    ]);
+  });
 });

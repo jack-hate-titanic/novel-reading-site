@@ -141,7 +141,22 @@ export function parseBilingualChapter(markdown: string): ParsedChapter {
       continue;
     }
 
+    // Same language as the pending line: the pending line stands on its own
+    // (the other language is empty). This lets a pure-English (or pure-Chinese)
+    // chapter produce one segment per line while staying compatible with the
+    // alternating bilingual format.
+    appendSegment(segments, pendingLine, {
+      language: pendingLine.language === "chinese" ? "english" : "chinese",
+      text: "",
+    });
     pendingLine = { language, text: line };
+  }
+
+  if (pendingLine) {
+    appendSegment(segments, pendingLine, {
+      language: pendingLine.language === "chinese" ? "english" : "chinese",
+      text: "",
+    });
   }
 
   return { title, segments };
@@ -191,6 +206,19 @@ export function splitBilingualChapterCollection(markdown: string): SplitChapter[
         bodyLines: [],
       };
       index += 1;
+      continue;
+    }
+
+    const soloEnglishMatch = line.match(englishChapterHeadingPattern);
+
+    if (soloEnglishMatch) {
+      // Pure-English chapter heading (no preceding Chinese heading).
+      pushCurrent();
+      current = {
+        order: Number.parseInt(soloEnglishMatch[1], 10),
+        title: line.replace(/^##\s+/, ""),
+        bodyLines: [],
+      };
       continue;
     }
 

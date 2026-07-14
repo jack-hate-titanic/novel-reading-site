@@ -13,10 +13,12 @@ export function ReaderSegment({
       <p className={styles.segmentIndex}>Segment {index}</p>
       <p className={styles.english}>{segment.english}</p>
 
-      <details className={styles.disclosure}>
-        <summary>Show Chinese</summary>
-        <p className={styles.chinese}>{segment.chinese}</p>
-      </details>
+      {segment.chinese ? (
+        <details className={styles.disclosure}>
+          <summary>Show Chinese</summary>
+          <p className={styles.chinese}>{segment.chinese}</p>
+        </details>
+      ) : null}
 
       {(segment.grammarNotes.length > 0 || segment.phrases.length > 0) && (
         <details className={styles.disclosure}>
