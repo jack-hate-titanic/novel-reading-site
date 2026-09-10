@@ -112,9 +112,10 @@ describe("content library", () => {
     expect(chapterThirty?.segments[0].english).toContain("Bao Shuya returned in embarrassment");
   });
 
-  it("loads Munger Thinking Course with a full lesson 1 and nine placeholder lessons", () => {
+  it("loads Munger Thinking Course with full lessons 1 and 2 and eight placeholder lessons", () => {
     const munger = getBookBySlug("munger-thinking-course");
     const first = getChapterBySlugs("munger-thinking-course", "chapter-01");
+    const second = getChapterBySlugs("munger-thinking-course", "chapter-02");
     const last = getChapterBySlugs("munger-thinking-course", "chapter-10");
 
     expect(munger?.coverTheme).toBe("ink");
@@ -139,6 +140,13 @@ describe("content library", () => {
     expect(first?.segments.at(-1)?.english).toBe(
       "Master it, and you will never need luck again.",
     );
+    expect(second?.title).toBe("Lesson 2: Wealth Begins with Self-Mastery");
+    expect(second?.segments.length).toBeGreaterThan(300);
+    expect(second?.segments[0].chinese).toBe("");
+    expect(second?.segments[0].english).toBe(
+      "People hold the strangest ideas about money.",
+    );
+    expect(second?.segments.at(-1)?.english).toBe("Everything else is noise.");
     expect(last?.title).toBe("Lesson 10: Simplicity and Integrity");
     expect(last?.segments).toHaveLength(2);
   });

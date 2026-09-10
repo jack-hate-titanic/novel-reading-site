@@ -112,9 +112,9 @@ const mungerLessonMeta: { title: string; summary: string }[] = [
       "Munger on the psychology of money: why temperament beats IQ, and why knowing what is enough is the real abundance.",
   },
   {
-    title: "Lesson 2: Inversion — Think It Through Backward",
+    title: "Lesson 2: Wealth Begins with Self-Mastery",
     summary:
-      "Solving problems backward: Munger's favorite way to avoid fooling yourself.",
+      "Munger's most underrated view of wealth: riches are a number, wealth is a mindset — and it starts with controlling your own time, wants, and ego.",
   },
   {
     title: "Lesson 3: The Circle of Competence",
@@ -259,7 +259,7 @@ export function getBooks(): Book[] {
       subtitle: "Charlie Munger's mental models, retold as bilingual lessons.",
       author: "Charlie Munger",
       description:
-        "An English-first edition of Charlie Munger's thinking course. Lesson 1, 'Enough Is Abundance,' is live; the remaining lessons are being prepared.",
+        "An English-first edition of Charlie Munger's thinking course. Lessons 1 and 2, 'Enough Is Abundance' and 'Wealth Begins with Self-Mastery,' are live; the remaining lessons are being prepared.",
       coverTheme: "ink",
       tags: ["Mental Models", "Thinking", "Non-fiction"],
       readingModeLabel: "English First",
