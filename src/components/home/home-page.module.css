@@ -102,6 +102,13 @@
   color: rgba(70, 37, 18, 0.78);
 }
 
+.cover[data-theme="ink"] {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.28), transparent 46%),
+    linear-gradient(180deg, #39424e, #151b24);
+  color: rgba(245, 242, 233, 0.88);
+}
+
 .rank {
   color: #172334;
   font-size: 1rem;
