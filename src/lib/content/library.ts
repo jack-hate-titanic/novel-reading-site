@@ -107,9 +107,9 @@ const nuanNuanChapters: Chapter[] = nuanNuanOrders.map((order) => {
 
 const mungerLessonMeta: { title: string; summary: string }[] = [
   {
-    title: "Lesson 1: The Latticework of Mental Models",
+    title: "Lesson 1: Enough Is Abundance",
     summary:
-      "Why Munger insists on a latticework of mental models drawn from many disciplines.",
+      "Munger on the psychology of money: why temperament beats IQ, and why knowing what is enough is the real abundance.",
   },
   {
     title: "Lesson 2: Inversion — Think It Through Backward",
@@ -259,7 +259,7 @@ export function getBooks(): Book[] {
       subtitle: "Charlie Munger's mental models, retold as bilingual lessons.",
       author: "Charlie Munger",
       description:
-        "An English-first bilingual edition of Charlie Munger's thinking course. Lessons are being prepared — placeholder scaffolding for now.",
+        "An English-first edition of Charlie Munger's thinking course. Lesson 1, 'Enough Is Abundance,' is live; the remaining lessons are being prepared.",
       coverTheme: "ink",
       tags: ["Mental Models", "Thinking", "Non-fiction"],
       readingModeLabel: "English First",

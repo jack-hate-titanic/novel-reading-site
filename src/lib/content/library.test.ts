@@ -112,7 +112,7 @@ describe("content library", () => {
     expect(chapterThirty?.segments[0].english).toContain("Bao Shuya returned in embarrassment");
   });
 
-  it("loads Munger Thinking Course as ten placeholder lessons", () => {
+  it("loads Munger Thinking Course with a full lesson 1 and nine placeholder lessons", () => {
     const munger = getBookBySlug("munger-thinking-course");
     const first = getChapterBySlugs("munger-thinking-course", "chapter-01");
     const last = getChapterBySlugs("munger-thinking-course", "chapter-10");
@@ -130,12 +130,15 @@ describe("content library", () => {
       "chapter-09",
       "chapter-10",
     ]);
-    expect(first?.title).toBe("Lesson 1: The Latticework of Mental Models");
-    expect(first?.segments).toHaveLength(2);
-    expect(first?.segments[0].chinese).toBe(
-      "本课正在筹备中，正式双语内容将在稍后补充。",
+    expect(first?.title).toBe("Lesson 1: Enough Is Abundance");
+    expect(first?.segments.length).toBeGreaterThan(200);
+    expect(first?.segments[0].chinese).toBe("");
+    expect(first?.segments[0].english).toBe(
+      "People think money problems come from bad investing.",
     );
-    expect(first?.segments[0].english).toContain("This lesson is being prepared");
+    expect(first?.segments.at(-1)?.english).toBe(
+      "Master it, and you will never need luck again.",
+    );
     expect(last?.title).toBe("Lesson 10: Simplicity and Integrity");
     expect(last?.segments).toHaveLength(2);
   });
