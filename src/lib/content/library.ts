@@ -105,6 +105,74 @@ const nuanNuanChapters: Chapter[] = nuanNuanOrders.map((order) => {
   };
 });
 
+const mungerLessonMeta: { title: string; summary: string }[] = [
+  {
+    title: "Lesson 1: The Latticework of Mental Models",
+    summary:
+      "Why Munger insists on a latticework of mental models drawn from many disciplines.",
+  },
+  {
+    title: "Lesson 2: Inversion — Think It Through Backward",
+    summary:
+      "Solving problems backward: Munger's favorite way to avoid fooling yourself.",
+  },
+  {
+    title: "Lesson 3: The Circle of Competence",
+    summary:
+      "Knowing the edge of what you truly understand, and staying inside it.",
+  },
+  {
+    title: "Lesson 4: The Psychology of Human Misjudgment",
+    summary:
+      "The cognitive biases Munger catalogued and how they distort decisions.",
+  },
+  {
+    title: "Lesson 5: Incentives Shape Behavior",
+    summary:
+      "Reading incentives first — the most reliable predictor of what people do.",
+  },
+  {
+    title: "Lesson 6: Avoid Stupidity Rather than Seek Brilliance",
+    summary: "Why not being wrong beats being clever in the long run.",
+  },
+  {
+    title: "Lesson 7: The Lollapalooza Effect",
+    summary:
+      "When several forces act in the same direction at once, outcomes go extreme.",
+  },
+  {
+    title: "Lesson 8: Patience and Discipline",
+    summary:
+      "Sitting on your hands: Munger's approach to rare, decisive moments.",
+  },
+  {
+    title: "Lesson 9: Lifelong Learning Through Reading",
+    summary:
+      "Invert the usual retirement of the mind — keep learning, keep compounding.",
+  },
+  {
+    title: "Lesson 10: Simplicity and Integrity",
+    summary:
+      "Reduce complexity, keep your reputation — the quiet pillars of Munger's system.",
+  },
+];
+
+const mungerChapters: Chapter[] = mungerLessonMeta.map((meta, index) => {
+  const order = index + 1;
+  const slug = `chapter-${String(order).padStart(2, "0")}`;
+
+  return {
+    slug,
+    bookSlug: "munger-thinking-course",
+    title: meta.title,
+    order,
+    summary: meta.summary,
+    segments: parseBilingualChapter(
+      readRaw(["munger-thinking-course", `${slug}.md`]),
+    ).segments,
+  };
+});
+
 const chapterFixtures: Chapter[] = [
   ...nuanNuanChapters,
   {
@@ -138,6 +206,7 @@ const chapterFixtures: Chapter[] = [
     ).segments,
   },
   ...springAndAutumnChapters,
+  ...mungerChapters,
 ];
 
 export function getBooks(): Book[] {
@@ -182,6 +251,20 @@ export function getBooks(): Book[] {
       readingModeLabel: "English First",
       chapters: chapterFixtures
         .filter((chapter) => chapter.bookSlug === "spring-and-autumn")
+        .map(toChapterPreview),
+    },
+    {
+      slug: "munger-thinking-course",
+      title: "Munger Thinking Course",
+      subtitle: "Charlie Munger's mental models, retold as bilingual lessons.",
+      author: "Charlie Munger",
+      description:
+        "An English-first bilingual edition of Charlie Munger's thinking course. Lessons are being prepared — placeholder scaffolding for now.",
+      coverTheme: "ink",
+      tags: ["Mental Models", "Thinking", "Non-fiction"],
+      readingModeLabel: "English First",
+      chapters: chapterFixtures
+        .filter((chapter) => chapter.bookSlug === "munger-thinking-course")
         .map(toChapterPreview),
     },
   ];

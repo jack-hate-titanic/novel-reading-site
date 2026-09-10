@@ -30,7 +30,7 @@ export type Book = {
   subtitle: string;
   author: string;
   description: string;
-  coverTheme: "mist" | "bronze";
+  coverTheme: "mist" | "bronze" | "ink";
   tags: string[];
   readingModeLabel: string;
   chapters: ChapterPreview[];
