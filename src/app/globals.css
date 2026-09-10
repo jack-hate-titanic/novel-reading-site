@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --paper: #f4efe5;
   --paper-strong: #e7decb;
   --ink: #1f1c17;
@@ -7,6 +8,24 @@
   --gold: #8b6b2f;
   --line: rgba(31, 28, 23, 0.14);
   --shadow: 0 24px 60px rgba(31, 28, 23, 0.12);
+  --card: #fbf8f1;
+  --card-glass: rgba(255, 255, 255, 0.42);
+  --page-bg: linear-gradient(180deg, #efe7d8 0%, #f8f3ea 100%);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #191610;
+  --paper-strong: #262117;
+  --ink: #ece5d8;
+  --ink-soft: #a89e8d;
+  --olive: #9db284;
+  --gold: #d4a94e;
+  --line: rgba(236, 229, 216, 0.16);
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  --card: #221e16;
+  --card-glass: rgba(236, 229, 216, 0.05);
+  --page-bg: linear-gradient(180deg, #14110c 0%, #1c1812 100%);
 }
 
 * {
@@ -17,7 +36,7 @@
 
 html {
   min-height: 100%;
-  background: linear-gradient(180deg, #efe7d8 0%, #f8f3ea 100%);
+  background: var(--page-bg);
 }
 
 body {
