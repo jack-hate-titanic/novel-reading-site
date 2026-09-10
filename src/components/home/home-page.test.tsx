@@ -14,7 +14,10 @@ describe("HomePage", () => {
     expect(screen.getByRole("link", { name: "Nuannuan" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Half-Demon Si Teng" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Spring and Autumn" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Munger Thinking Course" }),
+    ).toBeInTheDocument();
     expect(screen.getByText("Recommendation 94.9%", { exact: false })).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "Read" })).toHaveLength(3);
+    expect(screen.getAllByRole("link", { name: "Read" })).toHaveLength(4);
   });
 });
