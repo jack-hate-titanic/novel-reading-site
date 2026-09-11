@@ -112,10 +112,11 @@ describe("content library", () => {
     expect(chapterThirty?.segments[0].english).toContain("Bao Shuya returned in embarrassment");
   });
 
-  it("loads Munger Thinking Course with full lessons 1 and 2 and eight placeholder lessons", () => {
+  it("loads Munger Thinking Course with full lessons 1, 2, and 3 and seven placeholder lessons", () => {
     const munger = getBookBySlug("munger-thinking-course");
     const first = getChapterBySlugs("munger-thinking-course", "chapter-01");
     const second = getChapterBySlugs("munger-thinking-course", "chapter-02");
+    const third = getChapterBySlugs("munger-thinking-course", "chapter-03");
     const last = getChapterBySlugs("munger-thinking-course", "chapter-10");
 
     expect(munger?.coverTheme).toBe("ink");
@@ -147,6 +148,15 @@ describe("content library", () => {
       "People hold the strangest ideas about money.",
     );
     expect(second?.segments.at(-1)?.english).toBe("Everything else is noise.");
+    expect(third?.title).toBe("Lesson 3: The Limits of Diversification");
+    expect(third?.segments.length).toBeGreaterThan(300);
+    expect(third?.segments[0].chinese).toBe("");
+    expect(third?.segments[0].english).toBe(
+      "One of the stupidest things they teach young people in business schools is to treat diversification as a sacred law of investing.",
+    );
+    expect(third?.segments.at(-1)?.english).toBe(
+      "Believing that safety comes from owning everything is itself the definition of mediocrity.",
+    );
     expect(last?.title).toBe("Lesson 10: Simplicity and Integrity");
     expect(last?.segments).toHaveLength(2);
   });

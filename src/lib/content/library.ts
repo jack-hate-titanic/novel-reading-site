@@ -117,9 +117,9 @@ const mungerLessonMeta: { title: string; summary: string }[] = [
       "Munger's most underrated view of wealth: riches are a number, wealth is a mindset — and it starts with controlling your own time, wants, and ego.",
   },
   {
-    title: "Lesson 3: The Circle of Competence",
+    title: "Lesson 3: The Limits of Diversification",
     summary:
-      "Knowing the edge of what you truly understand, and staying inside it.",
+      "Munger dismantles the religion of diversification: it is protection against ignorance — those who truly understand concentrate their bets.",
   },
   {
     title: "Lesson 4: The Psychology of Human Misjudgment",
@@ -259,7 +259,7 @@ export function getBooks(): Book[] {
       subtitle: "Charlie Munger's mental models, retold as bilingual lessons.",
       author: "Charlie Munger",
       description:
-        "An English-first edition of Charlie Munger's thinking course. Lessons 1 and 2, 'Enough Is Abundance' and 'Wealth Begins with Self-Mastery,' are live; the remaining lessons are being prepared.",
+        "An English-first edition of Charlie Munger's thinking course. Lessons 1-3, from 'Enough Is Abundance' to 'The Limits of Diversification,' are live; the remaining lessons are being prepared.",
       coverTheme: "ink",
       tags: ["Mental Models", "Thinking", "Non-fiction"],
       readingModeLabel: "English First",
