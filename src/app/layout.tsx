@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
-import Script from "next/script";
 import { SiteShell } from "@/components/site/site-shell";
 import "./globals.css";
 
@@ -29,9 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${display.variable} ${sans.variable}`}>
-        <Script id="theme-init" strategy="beforeInteractive">
-          {themeInitScript}
-        </Script>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <SiteShell>{children}</SiteShell>
       </body>
     </html>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ContinueReadingLink } from "@/components/reading-progress/continue-reading-link";
+import { ThemeToggle } from "@/components/site/theme-toggle";
 
 const navItems = [
   { href: "/", label: "Library" },
@@ -22,6 +23,7 @@ export function SiteHeader() {
           fallbackHref="/read/half-demon-si-teng/chapter-1"
           fallbackLabel="Continue Reading"
         />
+        <ThemeToggle />
       </nav>
     </header>
   );

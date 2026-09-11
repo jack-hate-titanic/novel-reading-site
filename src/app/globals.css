@@ -81,6 +81,7 @@ select {
 
 .site-nav {
   display: flex;
+  align-items: center;
   gap: 20px;
   color: var(--ink-soft);
 }

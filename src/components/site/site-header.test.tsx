@@ -14,5 +14,8 @@ describe("SiteHeader", () => {
     expect(
       screen.getByRole("link", { name: "About Reading Mode" }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Switch to dark theme" }),
+    ).toBeInTheDocument();
   });
 });
