@@ -56,7 +56,7 @@ export function BookDetailProgress({ book }: { book: Book }) {
             flex: 1,
             height: 4,
             borderRadius: 4,
-            background: "rgba(31,28,23,0.1)",
+            background: "var(--line)",
             overflow: "hidden",
           }}
         >

@@ -3,21 +3,21 @@
   gap: 0;
   margin: 0 auto;
   max-width: 980px;
-  border-top: 1px solid #dedede;
-  border-bottom: 1px solid #dedede;
-  background: #fff;
-  color: #1b2733;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
 }
 
 .header {
   display: grid;
   gap: 8px;
   padding: 22px 16px 18px;
-  border-bottom: 1px solid #e4e4e4;
+  border-bottom: 1px solid var(--line);
 }
 
 .kicker {
-  color: #7f8c9a;
+  color: var(--ink-soft);
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -31,7 +31,7 @@
 
 .summary {
   max-width: 64ch;
-  color: #6b7785;
+  color: var(--ink-soft);
   font-size: 0.95rem;
   line-height: 1.7;
 }
@@ -40,7 +40,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px 18px;
-  color: #8a96a5;
+  color: var(--ink-soft);
   font-size: 0.82rem;
 }
 
@@ -51,7 +51,7 @@
 .stats span:not(:last-child)::after {
   position: absolute;
   right: -10px;
-  color: #d0d5da;
+  color: var(--line);
   content: "/";
 }
 
@@ -68,11 +68,11 @@
   align-items: center;
   min-width: 0;
   padding: 20px 16px 18px;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--line);
 }
 
 .rankingItem:nth-child(odd) {
-  border-right: 1px solid #e5e5e5;
+  border-right: 1px solid var(--line);
 }
 
 .rankingItem:nth-last-child(-n + 2) {
@@ -84,15 +84,24 @@
   place-items: center;
   width: 64px;
   height: 92px;
-  border: 1px solid #d8d8d8;
+  border: 1px solid var(--line);
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.34), transparent 46%),
-    linear-gradient(180deg, #f3f6f9, #cfd8e1);
+    linear-gradient(180deg, #f4efe5, #e7decb);
   box-shadow: 0 8px 18px rgba(20, 30, 40, 0.08);
-  color: rgba(27, 39, 51, 0.72);
+  color: var(--ink-soft);
   font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+}
+
+/* Keep this BEFORE the bronze/ink variants: equal-specificity rules resolve
+   by source order, so later variants keep winning on their covers in dark mode. */
+[data-theme="dark"] .cover {
+  background:
+    linear-gradient(135deg, rgba(236, 229, 216, 0.06), transparent 46%),
+    linear-gradient(180deg, #2a2519, #1d1912);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
 }
 
 .cover[data-theme="bronze"] {
@@ -110,7 +119,7 @@
 }
 
 .rank {
-  color: #172334;
+  color: var(--ink);
   font-size: 1rem;
   font-weight: 700;
   text-align: right;
@@ -124,7 +133,7 @@
 .title {
   display: block;
   overflow: hidden;
-  color: #172334;
+  color: var(--ink);
   font-size: 1.15rem;
   font-weight: 700;
   line-height: 1.35;
@@ -133,13 +142,13 @@
 }
 
 .title:hover {
-  color: #0067c5;
+  color: var(--gold);
 }
 
 .author {
   overflow: hidden;
   margin-top: 8px;
-  color: #7f8c9a;
+  color: var(--ink-soft);
   font-size: 0.92rem;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -150,28 +159,28 @@
   flex-wrap: wrap;
   gap: 0 5px;
   margin-top: 8px;
-  color: #9aa5b1;
+  color: var(--ink-soft);
   font-size: 0.86rem;
   line-height: 1.5;
 }
 
 .tags {
-  color: #f0a000;
+  color: var(--gold);
 }
 
 .readLink {
-  color: #0086ff;
+  color: var(--gold);
 }
 
 .mode {
   padding: 18px 16px 22px;
-  border-top: 1px solid #e5e5e5;
-  color: #6b7785;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
 }
 
 .mode h2 {
   margin: 0 0 6px;
-  color: #172334;
+  color: var(--ink);
   font-size: 1rem;
 }
 
@@ -192,7 +201,7 @@
   }
 
   .rankingItem:nth-last-child(-n + 2) {
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid var(--line);
   }
 
   .rankingItem:last-child {

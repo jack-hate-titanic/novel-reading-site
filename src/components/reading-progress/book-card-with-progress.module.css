@@ -2,7 +2,7 @@
   padding: 28px;
   border: 1px solid var(--line);
   border-radius: 28px;
-  background: rgba(255, 255, 255, 0.42);
+  background: var(--card-glass);
 }
 
 .card[data-theme="mist"] {
@@ -67,7 +67,7 @@
   flex: 1;
   height: 4px;
   border-radius: 4px;
-  background: rgba(31, 28, 23, 0.1);
+  background: var(--line);
   overflow: hidden;
 }
 
@@ -115,4 +115,23 @@
 
 .secondaryAction:hover {
   color: var(--ink);
+}
+
+[data-theme="dark"] .card[data-theme="mist"] {
+  background:
+    linear-gradient(180deg, rgba(236, 229, 216, 0.06), rgba(41, 36, 26, 0.92));
+}
+
+[data-theme="dark"] .card[data-theme="bronze"] {
+  background:
+    linear-gradient(180deg, rgba(212, 169, 78, 0.12), rgba(32, 26, 16, 0.92));
+}
+
+[data-theme="dark"] .card[data-theme="ink"] {
+  background:
+    linear-gradient(180deg, rgba(57, 66, 78, 0.35), rgba(21, 27, 36, 0.92));
+}
+
+[data-theme="dark"] .tags span {
+  background: rgba(157, 178, 132, 0.16);
 }
