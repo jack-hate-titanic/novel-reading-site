@@ -19,8 +19,9 @@ function getTheme(): Theme {
 }
 
 function getServerTheme(): Theme {
-  // Matches SSR markup; the real theme is read on the client after hydration.
-  return "light";
+  // Matches SSR markup (<html data-theme="dark">); the real theme is read on
+  // the client after hydration.
+  return "dark";
 }
 
 export function ThemeToggle() {

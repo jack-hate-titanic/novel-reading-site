@@ -1,19 +1,20 @@
 # Dark Theme Design
 
 Date: 2026-09-10
-Status: Approved (pending implementation)
+Status: Implemented (default changed to dark on 2026-09-11)
 
 ## Goal
 
 Add a warm-toned dark theme to the novel reading site with a manual Light/Dark
 toggle in the site header. The choice persists in `localStorage`; first visit
-follows the system `prefers-color-scheme` preference.
+defaults to dark (changed 2026-09-11 from following the system
+`prefers-color-scheme` preference).
 
 ## Non-Goals
 
 - No tri-state (Light/Dark/System) toggle — two states only.
-- No live re-sync when the OS theme changes mid-session; a page refresh picks
-  up the new system preference (only when no stored choice exists).
+- No system-preference detection at all (removed 2026-09-11): dark is the
+  fixed default, and only an explicit toggle choice is stored.
 - No cross-tab synchronization.
 - No new dependencies (no `next-themes`).
 
@@ -70,11 +71,11 @@ Injected into `<head>` in `src/app/layout.tsx` (runs synchronously before
 paint):
 
 1. Read `localStorage.getItem("theme")`.
-2. If `"light"` or `"dark"`, use it; otherwise use
-   `matchMedia("(prefers-color-scheme: dark)")`.
+2. If `"light"` or `"dark"`, use it; otherwise default to `"dark"`.
 3. Set `document.documentElement.dataset.theme`.
 
-The `<html>` tag carries `suppressHydrationWarning` because the script mutates
+The `<html>` tag is server-rendered with `data-theme="dark"` (the site
+default) and carries `suppressHydrationWarning` because the script may mutate
 it before hydration.
 
 ### Toggle button
@@ -131,7 +132,7 @@ New client component `src/components/site/theme-toggle.tsx`:
   should pass unchanged.
 - Manual verification via `npm run dev`: both themes on `/`,
   `/books/half-demon-si-teng`, and a reader route; theme survives refresh;
-  first visit follows system preference; no flash on load.
+  first visit defaults to dark; no flash on load.
 - The no-flash script is not unit-testable; verified manually.
 
 ## Verification Checklist
