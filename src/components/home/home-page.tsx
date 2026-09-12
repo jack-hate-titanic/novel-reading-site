@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Book } from "@/lib/content/types";
 import styles from "./home-page.module.css";
@@ -26,7 +27,18 @@ function RankingBookItem({ book, rank }: { book: Book; rank: number }) {
         data-theme={book.coverTheme}
         aria-hidden="true"
       >
-        {getCoverLabel(book.title)}
+        {book.coverImage ? (
+          <Image
+            src={book.coverImage}
+            alt=""
+            width={64}
+            height={92}
+            sizes="64px"
+            priority={rank <= 2}
+          />
+        ) : (
+          getCoverLabel(book.title)
+        )}
       </span>
       <span className={styles.rank}>{rank}</span>
       <div className={styles.bookInfo}>

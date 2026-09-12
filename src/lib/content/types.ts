@@ -31,6 +31,7 @@ export type Book = {
   author: string;
   description: string;
   coverTheme: "mist" | "bronze" | "ink";
+  coverImage?: string;
   tags: string[];
   readingModeLabel: string;
   chapters: ChapterPreview[];

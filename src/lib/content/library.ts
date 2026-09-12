@@ -219,6 +219,7 @@ export function getBooks(): Book[] {
       description:
         "An English-first reading edition of Cai Zhiheng's bilingual novella about a brief, warm encounter between two students at a cross-strait summer camp.",
       coverTheme: "mist",
+      coverImage: "/covers/nuan-nuan.jpg",
       tags: ["Romance", "Contemporary", "Taiwan"],
       readingModeLabel: "English First",
       chapters: chapterFixtures
@@ -233,6 +234,7 @@ export function getBooks(): Book[] {
       description:
         "An English-first reading edition built from the current bilingual Si Teng chapter collection.",
       coverTheme: "mist",
+      coverImage: "/covers/half-demon-si-teng.jpg",
       tags: ["Modern Fantasy", "Atmospheric", "Dialogue"],
       readingModeLabel: "English First",
       chapters: chapterFixtures
@@ -247,6 +249,7 @@ export function getBooks(): Book[] {
       description:
         "An English-first reading edition built from the current bilingual chapter collection.",
       coverTheme: "bronze",
+      coverImage: "/covers/spring-and-autumn.jpg",
       tags: ["History", "Narrative", "Close Reading"],
       readingModeLabel: "English First",
       chapters: chapterFixtures
@@ -261,6 +264,7 @@ export function getBooks(): Book[] {
       description:
         "An English-first edition of Charlie Munger's thinking course. Lessons 1-3, from 'Enough Is Abundance' to 'The Limits of Diversification,' are live; the remaining lessons are being prepared.",
       coverTheme: "ink",
+      coverImage: "/covers/munger-thinking-course.jpg",
       tags: ["Mental Models", "Thinking", "Non-fiction"],
       readingModeLabel: "English First",
       chapters: chapterFixtures
