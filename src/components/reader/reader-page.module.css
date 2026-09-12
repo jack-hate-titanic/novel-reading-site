@@ -69,8 +69,75 @@
 .english {
   margin: 0;
   font-family: var(--font-display), serif;
-  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-size: calc(clamp(1.4rem, 2.4vw, 2rem) * var(--reader-font-scale, 1));
   line-height: 1.45;
+}
+
+.pageBox {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 320px;
+}
+
+.pageScroll {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  gap: 18px;
+  align-content: start;
+  overflow-y: auto;
+}
+
+.controlBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card-glass);
+}
+
+.fontControls,
+.pageControls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.controlButton {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.controlButton:hover:not(:disabled) {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.controlButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.fontLabel {
+  min-width: 2ch;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.pageIndicator {
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 900px) {
@@ -80,5 +147,9 @@
 
   .sidebar {
     position: static;
+  }
+
+  .pageBox {
+    order: -1;
   }
 }
