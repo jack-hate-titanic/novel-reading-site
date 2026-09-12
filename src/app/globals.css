@@ -91,6 +91,10 @@ select {
     padding: 16px;
   }
 
+  .site-brand {
+    display: none;
+  }
+
   .site-header {
     flex-direction: column;
     align-items: flex-start;
