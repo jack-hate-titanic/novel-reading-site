@@ -66,7 +66,7 @@ const springAndAutumnChapters: Chapter[] = [
     order: chapter.order,
     summary:
       springAndAutumnSummaries[chapter.slug] ??
-      `A study-friendly bilingual reading of ${chapter.title}.`,
+      `A close English reading of ${chapter.title}.`,
     segments: parseBilingualChapter(chapter.markdown).segments,
   }));
 
@@ -242,12 +242,12 @@ export function getBooks(): Book[] {
     {
       slug: "spring-and-autumn",
       title: "Spring and Autumn",
-      subtitle: "A sharp historical narrative with study-friendly bilingual support.",
+      subtitle: "A sharp historical narrative in close English reading.",
       author: "Jia Zhigang",
       description:
         "An English-first reading edition built from the current bilingual chapter collection.",
       coverTheme: "bronze",
-      tags: ["History", "Narrative", "Grammar Notes"],
+      tags: ["History", "Narrative", "Close Reading"],
       readingModeLabel: "English First",
       chapters: chapterFixtures
         .filter((chapter) => chapter.bookSlug === "spring-and-autumn")
@@ -256,7 +256,7 @@ export function getBooks(): Book[] {
     {
       slug: "munger-thinking-course",
       title: "Munger Thinking Course",
-      subtitle: "Charlie Munger's mental models, retold as bilingual lessons.",
+      subtitle: "Charlie Munger's mental models, retold as focused English lessons.",
       author: "Charlie Munger",
       description:
         "An English-first edition of Charlie Munger's thinking course. Lessons 1-3, from 'Enough Is Abundance' to 'The Limits of Diversification,' are live; the remaining lessons are being prepared.",

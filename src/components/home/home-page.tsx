@@ -57,7 +57,7 @@ export function HomePage({ books }: { books: Book[] }) {
   return (
     <div className={styles.page}>
       <section className={styles.header}>
-        <p className={styles.kicker}>Featured bilingual novels</p>
+        <p className={styles.kicker}>Featured English novels</p>
         <h1>Reader Rankings</h1>
         <p className={styles.summary}>
           English-first selections arranged like a compact reading chart, with
@@ -79,8 +79,8 @@ export function HomePage({ books }: { books: Book[] }) {
       <section id="reading-mode" className={styles.mode}>
         <h2>Reading mode</h2>
         <p>
-          English stays visible first. Chinese lines, grammar notes, and phrase
-          support stay secondary until you need them.
+          Clean English prose in calm, paginated pages. Pick a book, turn a page,
+          and the site remembers exactly where you stopped.
         </p>
       </section>
     </div>

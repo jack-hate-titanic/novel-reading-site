@@ -15,7 +15,7 @@ const sans = Manrope({
 
 export const metadata: Metadata = {
   title: "Novel Reading Site",
-  description: "An English-first reading home for bilingual literary study.",
+  description: "An English-first home for immersive novel reading.",
 };
 
 const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t="dark";}document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme="dark";}})();`;
