@@ -20,3 +20,8 @@ npm run dev
 npm run test:run
 npm run build
 ```
+
+1. Can we develop an iOS mobile app?
+2. The Chinese and English translations of Siten are not aligned.
+3. No previous records, just seeing the current record.
+4. No automatic page turning feature.
