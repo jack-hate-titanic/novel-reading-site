@@ -41,7 +41,7 @@ export function pageIndexOfSegment(
 }
 
 export function clampAnchor(anchor: number, totalSegments: number): number {
-  if (totalSegments <= 0) {
+  if (totalSegments <= 0 || Number.isNaN(anchor)) {
     return 0;
   }
   return Math.min(Math.max(Math.trunc(anchor), 0), totalSegments - 1);

@@ -56,4 +56,12 @@ describe("clampAnchor", () => {
   it("returns 0 when there are no segments", () => {
     expect(clampAnchor(3, 0)).toBe(0);
   });
+
+  it("returns 0 for a NaN anchor instead of propagating it", () => {
+    expect(clampAnchor(Number.NaN, 5)).toBe(0);
+  });
+
+  it("clamps an infinite anchor to the last segment", () => {
+    expect(clampAnchor(Number.POSITIVE_INFINITY, 5)).toBe(4);
+  });
 });

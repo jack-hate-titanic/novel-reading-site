@@ -50,6 +50,15 @@ describe("reader-preferences", () => {
     expect(getReaderFontScaleIndex()).toBe(1);
   });
 
+  it("ignores non-integer indexes without touching storage", () => {
+    setReaderFontScaleIndex(2);
+    setReaderFontScaleIndex(1.5);
+    expect(getReaderFontScaleIndex()).toBe(2);
+    expect(JSON.parse(localStorage.getItem(STORAGE_KEY)!)).toEqual({
+      fontScaleIndex: 2,
+    });
+  });
+
   it("falls back to the default when storage holds invalid JSON", () => {
     localStorage.setItem(STORAGE_KEY, "{not json");
     expect(getReaderFontScaleIndex()).toBe(1);
