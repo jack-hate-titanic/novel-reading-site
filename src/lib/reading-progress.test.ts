@@ -5,6 +5,7 @@ import {
   getBookProgress,
   calculateBookPercentage,
   getMostRecentBook,
+  getContinueReadingHref,
 } from "@/lib/reading-progress";
 import type { ChapterPreview } from "@/lib/content/types";
 
@@ -103,5 +104,17 @@ describe("reading-progress", () => {
   it("handles corrupted localStorage gracefully", () => {
     localStorage.setItem(STORAGE_KEY, "not-valid-json");
     expect(getStoredProgress()).toEqual({});
+  });
+
+  it("builds a deep link to the stored reading position", () => {
+    const progress = {
+      lastChapterSlug: "chapter-02",
+      lastSegmentIndex: 4,
+      updatedAt: 1,
+    };
+
+    expect(getContinueReadingHref("nuan-nuan", progress)).toBe(
+      "/read/nuan-nuan/chapter-02?s=5",
+    );
   });
 });

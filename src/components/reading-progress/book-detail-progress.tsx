@@ -6,6 +6,7 @@ import type { Book } from "@/lib/content/types";
 import {
   getBookProgress,
   calculateBookPercentage,
+  getContinueReadingHref,
   subscribeToProgressChanges,
 } from "@/lib/reading-progress";
 
@@ -81,7 +82,7 @@ export function BookDetailProgress({ book }: { book: Book }) {
         </span>
       </div>
       <Link
-        href={`/read/${book.slug}/${progress.lastChapterSlug}`}
+        href={getContinueReadingHref(book.slug, progress)}
         style={{
           display: "inline-flex",
           padding: "12px 20px",

@@ -2,7 +2,11 @@
 
 import { useSyncExternalStore } from "react";
 import Link from "next/link";
-import { getMostRecentBook, subscribeToProgressChanges } from "@/lib/reading-progress";
+import {
+  getContinueReadingHref,
+  getMostRecentBook,
+  subscribeToProgressChanges,
+} from "@/lib/reading-progress";
 
 export function ContinueReadingLink({
   fallbackHref,
@@ -18,7 +22,7 @@ export function ContinueReadingLink({
   );
 
   if (recent) {
-    const href = `/read/${recent.bookSlug}/${recent.progress.lastChapterSlug}`;
+    const href = getContinueReadingHref(recent.bookSlug, recent.progress);
     return <Link href={href}>Continue Reading</Link>;
   }
 

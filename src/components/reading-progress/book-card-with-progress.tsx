@@ -6,6 +6,7 @@ import type { Book } from "@/lib/content/types";
 import {
   getBookProgress,
   calculateBookPercentage,
+  getContinueReadingHref,
   subscribeToProgressChanges,
 } from "@/lib/reading-progress";
 import styles from "./book-card-with-progress.module.css";
@@ -25,7 +26,7 @@ export function BookCardWithProgress({ book }: { book: Book }) {
     : 0;
   const firstChapter = book.chapters[0];
   const continueHref = progress
-    ? `/read/${book.slug}/${progress.lastChapterSlug}`
+    ? getContinueReadingHref(book.slug, progress)
     : `/read/${book.slug}/${firstChapter.slug}`;
   const continueLabel = progress ? "Continue Reading" : "Begin reading";
 

@@ -147,3 +147,10 @@ export function getMostRecentBook(): {
   cachedRecentResult = mostRecent;
   return cachedRecentResult;
 }
+
+export function getContinueReadingHref(
+  bookSlug: string,
+  progress: BookProgress,
+): string {
+  return `/read/${bookSlug}/${progress.lastChapterSlug}?s=${progress.lastSegmentIndex + 1}`;
+}
