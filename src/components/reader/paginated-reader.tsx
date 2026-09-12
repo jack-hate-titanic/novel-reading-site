@@ -11,7 +11,7 @@ import {
 import type { CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { ReaderSegment } from "@/components/reader/reader-segment";
-import type { ReaderSegment as ReaderSegmentData } from "@/lib/content/types";
+import type { EnglishSegment } from "@/lib/content/english-text";
 import {
   clampAnchor,
   packPagesByHeight,
@@ -47,7 +47,7 @@ export function PaginatedReader({
 }: {
   bookSlug: string;
   chapterSlug: string;
-  segments: ReaderSegmentData[];
+  segments: EnglishSegment[];
   previousHref: string | null;
   nextHref: string | null;
   previousChapterDisplayCount: number;

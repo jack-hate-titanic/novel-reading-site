@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { ReaderPage } from "@/components/reader/reader-page";
-import { getDisplaySegments } from "@/lib/content/english-text";
+import { getEnglishSegments } from "@/lib/content/english-text";
 import {
   getAdjacentChapters,
   getBookBySlug,
@@ -32,7 +32,7 @@ export default async function Page({
 
   const adjacent = getAdjacentChapters(bookSlug, chapterSlug);
   const previousChapterDisplayCount = adjacent.previous
-    ? getDisplaySegments(adjacent.previous.segments).length
+    ? getEnglishSegments(adjacent.previous.segments).length
     : 0;
 
   return (

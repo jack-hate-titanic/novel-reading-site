@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PaginatedReader } from "@/components/reader/paginated-reader";
-import { getDisplaySegments } from "@/lib/content/english-text";
+import { getEnglishSegments } from "@/lib/content/english-text";
 import type { Book, Chapter } from "@/lib/content/types";
 import styles from "./reader-page.module.css";
 
@@ -17,7 +17,7 @@ export function ReaderPage({
   nextHref: string | null;
   previousChapterDisplayCount: number;
 }) {
-  const displaySegments = getDisplaySegments(chapter.segments);
+  const displaySegments = getEnglishSegments(chapter.segments);
 
   return (
     <div className={styles.page}>

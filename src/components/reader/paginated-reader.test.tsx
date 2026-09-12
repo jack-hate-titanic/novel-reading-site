@@ -6,7 +6,7 @@ import {
   getBookProgress,
   saveBookProgress,
 } from "@/lib/reading-progress";
-import type { ReaderSegment as ReaderSegmentData } from "@/lib/content/types";
+import type { EnglishSegment } from "@/lib/content/english-text";
 
 const pushMock = vi.fn();
 vi.mock("next/navigation", () => ({
@@ -17,13 +17,10 @@ vi.mock("next/navigation", () => ({
   }),
 }));
 
-const makeSegments = (count: number): ReaderSegmentData[] =>
+const makeSegments = (count: number): EnglishSegment[] =>
   Array.from({ length: count }, (_, index) => ({
     id: `segment-${index + 1}`,
-    chinese: "",
     english: `Segment text ${index + 1} for pagination tests.`,
-    grammarNotes: [],
-    phrases: [],
   }));
 
 const defaultProps = () => ({

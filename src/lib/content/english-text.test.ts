@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   getDisplaySegments,
+  getEnglishSegments,
   hasReadableEnglish,
   stripChineseGlosses,
 } from "@/lib/content/english-text";
@@ -75,6 +76,41 @@ describe("getDisplaySegments", () => {
     expect(displayed.map((segment) => segment.id)).toEqual([
       "segment-1",
       "segment-3",
+    ]);
+  });
+});
+
+describe("getEnglishSegments", () => {
+  it("projects display segments to an English-only shape with glosses stripped", () => {
+    const segments = [
+      {
+        id: "segment-1",
+        chinese: "阳光很好。",
+        english: "The sun was bright（很好）, but cold.",
+        grammarNotes: ["语法标记：并列句。"],
+        phrases: ["bring no warmth：毫无暖意"],
+      },
+      {
+        id: "segment-2",
+        chinese: "",
+        english: "我能張開右手告訴他們 talk to this hand 嗎？",
+        grammarNotes: [],
+        phrases: [],
+      },
+      {
+        id: "segment-3",
+        chinese: "",
+        english: "Third line of prose.",
+        grammarNotes: ["unused note"],
+        phrases: ["unused phrase"],
+      },
+    ];
+
+    const projected = getEnglishSegments(segments);
+
+    expect(projected).toEqual([
+      { id: "segment-1", english: "The sun was bright, but cold." },
+      { id: "segment-3", english: "Third line of prose." },
     ]);
   });
 });

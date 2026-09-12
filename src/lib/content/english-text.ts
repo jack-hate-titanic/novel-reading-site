@@ -23,3 +23,17 @@ export function getDisplaySegments(
 ): ReaderSegment[] {
   return segments.filter((segment) => hasReadableEnglish(segment.english));
 }
+
+export type EnglishSegment = {
+  id: string;
+  english: string;
+};
+
+export function getEnglishSegments(
+  segments: ReaderSegment[],
+): EnglishSegment[] {
+  return getDisplaySegments(segments).map((segment) => ({
+    id: segment.id,
+    english: stripChineseGlosses(segment.english),
+  }));
+}

@@ -1,4 +1,4 @@
-import type { ReaderSegment as ReaderSegmentType } from "@/lib/content/types";
+import type { EnglishSegment } from "@/lib/content/english-text";
 import { stripChineseGlosses } from "@/lib/content/english-text";
 import styles from "./reader-page.module.css";
 
@@ -7,7 +7,7 @@ export function ReaderSegment({
   segment,
 }: {
   index: number;
-  segment: ReaderSegmentType;
+  segment: EnglishSegment;
 }) {
   return (
     <article className={styles.segment}>

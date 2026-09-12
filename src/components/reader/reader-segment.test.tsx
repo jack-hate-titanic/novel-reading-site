@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { ReaderSegment } from "@/components/reader/reader-segment";
 
 describe("ReaderSegment", () => {
-  it("renders the segment label and gloss-free English only", () => {
+  it("renders the segment label and gloss-free English", () => {
     render(
       <ReaderSegment
         index={1}
@@ -11,9 +11,6 @@ describe("ReaderSegment", () => {
           id: "segment-1",
           english:
             "She leaned against the car door（靠着车门）, holding up her phone.",
-          chinese: "阳光很好，但没有暖意。",
-          grammarNotes: ["语法标记：并列句。"],
-          phrases: ["bring no warmth：毫无暖意"],
         }}
       />,
     );
@@ -26,25 +23,18 @@ describe("ReaderSegment", () => {
     ).toBeInTheDocument();
   });
 
-  it("does not render Chinese translations, notes, or phrase blocks", () => {
-    render(
+  it("renders only the label and English text", () => {
+    const { container } = render(
       <ReaderSegment
         index={2}
-        segment={{
-          id: "segment-2",
-          english: "The sun was bright, but it brought no warmth.",
-          chinese: "阳光很好，但没有暖意。",
-          grammarNotes: ["语法标记：并列句。"],
-          phrases: ["bring no warmth：毫无暖意"],
-        }}
+        segment={{ id: "segment-2", english: "The sun was bright." }}
       />,
     );
 
-    expect(screen.queryByText("Show Chinese")).not.toBeInTheDocument();
-    expect(screen.queryByText("Show Notes")).not.toBeInTheDocument();
-    expect(screen.queryByText("阳光很好，但没有暖意。")).not.toBeInTheDocument();
-    expect(
-      screen.queryByText("语法标记：并列句。"),
-    ).not.toBeInTheDocument();
+    const article = container.querySelector("article");
+    expect(article).not.toBeNull();
+    expect(article?.children).toHaveLength(2);
+    expect(screen.getByText("Segment 2")).toBeInTheDocument();
+    expect(screen.getByText("The sun was bright.")).toBeInTheDocument();
   });
 });
