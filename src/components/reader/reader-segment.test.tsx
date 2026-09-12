@@ -3,10 +3,9 @@ import { describe, expect, it } from "vitest";
 import { ReaderSegment } from "@/components/reader/reader-segment";
 
 describe("ReaderSegment", () => {
-  it("renders the segment label and gloss-free English", () => {
+  it("renders gloss-free English text", () => {
     render(
       <ReaderSegment
-        index={1}
         segment={{
           id: "segment-1",
           english:
@@ -15,7 +14,6 @@ describe("ReaderSegment", () => {
       />,
     );
 
-    expect(screen.getByText("Segment 1")).toBeInTheDocument();
     expect(
       screen.getByText(
         "She leaned against the car door, holding up her phone.",
@@ -23,18 +21,15 @@ describe("ReaderSegment", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders only the label and English text", () => {
+  it("renders only the English text with no label", () => {
     const { container } = render(
       <ReaderSegment
-        index={2}
         segment={{ id: "segment-2", english: "The sun was bright." }}
       />,
     );
 
-    const article = container.querySelector("article");
-    expect(article).not.toBeNull();
-    expect(article?.children).toHaveLength(2);
-    expect(screen.getByText("Segment 2")).toBeInTheDocument();
+    expect(container.querySelectorAll("p")).toHaveLength(1);
     expect(screen.getByText("The sun was bright.")).toBeInTheDocument();
+    expect(screen.queryByText(/^Segment \d/)).not.toBeInTheDocument();
   });
 });

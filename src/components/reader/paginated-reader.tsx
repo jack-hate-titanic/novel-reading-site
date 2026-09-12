@@ -244,7 +244,7 @@ export function PaginatedReader({
             }}
             data-segment-index={index}
           >
-            <ReaderSegment index={index + 1} segment={segments[index]} />
+            <ReaderSegment segment={segments[index]} />
           </div>
         ))}
       </div>

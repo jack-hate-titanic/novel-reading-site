@@ -72,9 +72,15 @@ describe("PaginatedReader", () => {
     render(<PaginatedReader {...defaultProps()} />);
 
     expect(screen.getByText("1 / 3")).toBeInTheDocument();
-    expect(screen.getByText("Segment 1")).toBeInTheDocument();
-    expect(screen.getByText("Segment 2")).toBeInTheDocument();
-    expect(screen.queryByText("Segment 5")).not.toBeInTheDocument();
+    expect(
+      screen.getByText("Segment text 1 for pagination tests."),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Segment text 2 for pagination tests."),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("Segment text 5 for pagination tests."),
+    ).not.toBeInTheDocument();
   });
 
   it("caps the box height to a short viewport instead of a fixed floor", () => {
@@ -119,8 +125,12 @@ describe("PaginatedReader", () => {
     render(<PaginatedReader {...defaultProps()} />);
 
     expect(screen.getByText("3 / 3")).toBeInTheDocument();
-    expect(screen.getByText("Segment 5")).toBeInTheDocument();
-    expect(screen.queryByText("Segment 1")).not.toBeInTheDocument();
+    expect(
+      screen.getByText("Segment text 5 for pagination tests."),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("Segment text 1 for pagination tests."),
+    ).not.toBeInTheDocument();
     expect(getBookProgress("nuan-nuan")?.lastSegmentIndex).toBe(4);
   });
 
