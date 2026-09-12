@@ -72,6 +72,13 @@ export function getBookProgress(bookSlug: string): BookProgress | null {
   return progress[bookSlug] ?? null;
 }
 
+export function getProgressChapter(
+  chapters: ChapterPreview[],
+  progress: BookProgress,
+): ChapterPreview | null {
+  return chapters.find((ch) => ch.slug === progress.lastChapterSlug) ?? null;
+}
+
 export function calculateBookPercentage(
   chapters: ChapterPreview[],
   progress: BookProgress,

@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Book } from "@/lib/content/types";
 import {
   getBookProgress,
+  getProgressChapter,
   calculateBookPercentage,
   getContinueReadingHref,
   subscribeToProgressChanges,
@@ -43,6 +44,13 @@ export function BookCardWithProgress({ book }: { book: Book }) {
           <span key={tag}>{tag}</span>
         ))}
       </div>
+
+      {progress && (
+        <p className={styles.position}>
+          Currently reading{" "}
+          <strong>{getProgressChapter(book.chapters, progress)?.title ?? "In progress"}</strong>
+        </p>
+      )}
 
       {progress && (
         <div className={styles.progressArea}>

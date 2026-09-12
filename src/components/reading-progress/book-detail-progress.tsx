@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Book } from "@/lib/content/types";
 import {
   getBookProgress,
+  getProgressChapter,
   calculateBookPercentage,
   getContinueReadingHref,
   subscribeToProgressChanges,
@@ -41,9 +42,23 @@ export function BookDetailProgress({ book }: { book: Book }) {
   }
 
   const percentage = calculateBookPercentage(book.chapters, progress);
+  const chapterTitle =
+    getProgressChapter(book.chapters, progress)?.title ?? "In progress";
 
   return (
     <div style={{ marginTop: 12 }}>
+      <p
+        style={{
+          margin: "0 0 8px",
+          color: "var(--ink-soft)",
+          fontSize: "0.9rem",
+        }}
+      >
+        Currently reading{" "}
+        <strong style={{ color: "var(--ink)", fontWeight: 600 }}>
+          {chapterTitle}
+        </strong>
+      </p>
       <div
         style={{
           display: "flex",
