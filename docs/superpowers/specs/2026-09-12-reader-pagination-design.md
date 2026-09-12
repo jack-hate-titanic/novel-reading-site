@@ -277,17 +277,47 @@ New tests: `english-text.test.ts`, `pagination.test.ts`,
    `saveBookProgress` called with the page anchor, keyboard arrows, chapter
    boundary links, font buttons call `setReaderFontScaleIndex`.
 5. **Existing suites keep passing** (`npm run test:run`).
-6. **Build + prerender verification:** `npm run build`; then
-   `grep -P "[\x{4e00}-\x{9fff}]" .next/server/app/read/**/*.html` must
-   return **zero** matches — the reader HTML is fully CJK-free. Spot-check
-   `?s=` handling and page controls against the user's dev server
-   (`:3000`; never spawn a second one).
+6. **Build + prerender verification:** `npm run build`; then the CJK gate
+   over `.next/server/app/read/**/*.html` (corrected 2026-09-12
+   post-implementation — see Amendment below): the RSC flight payload must
+   serialize no Chinese data fields (no `"chinese":` in any reader HTML),
+   and any remaining CJK must be confined to the documented Known-residue
+   files. Spot-check `?s=` handling and page controls against the user's
+   dev server (`:3000`; never spawn a second one).
 
 ## Verification Checklist
 
 1. `npm run test:run` — all suites green.
 2. `npm run lint` — clean.
 3. `npm run build` — 67 pages prerendered, no Suspense/CSR-bailout errors.
-4. CJK grep over prerendered reader HTML — zero matches.
+4. CJK gate over prerendered reader HTML — payload serializes no Chinese
+   data fields; remaining CJK confined to the documented Known-residue
+   files (8 files).
 5. Dev-server spot check: pagination, font buttons, page memory across
    reload, Continue Reading deep links, chapter boundaries.
+
+## Amendment (2026-09-12, post-implementation)
+
+Two corrections made during Task 9 verification, recorded here so the spec
+matches what shipped:
+
+1. **English-only segment projection at the server/client boundary.**
+   `getDisplaySegments` returns full `ReaderSegment` objects; passing those
+   from the server `reader-page.tsx` to the client `PaginatedReader`
+   serialized `chinese`/`grammarNotes`/`phrases` into the RSC flight payload
+   of the static HTML (invisible, but Chinese data shipped to the client and
+   failed the CJK gate). `english-text.ts` now also exports
+   `getEnglishSegments(segments): EnglishSegment[]` where
+   `EnglishSegment = { id, english }` (glosses stripped), and that is what
+   crosses the boundary. `PaginatedReader` and `ReaderSegment` prop types
+   narrowed accordingly. The visible DOM is unchanged; the data model and
+   parser stay untouched.
+
+2. **CJK gate corrected (supersedes the original "zero matches" line).**
+   The original checklist demanded zero CJK over all reader HTML, which
+   contradicted this spec's own "Known residue" section — those lines are
+   deliberately kept (feature, not bug) and appear in the DOM and therefore
+   the flight payload. The shipped gate: (a) no Chinese data fields in any
+   payload (`"chinese":` never serialized), and (b) CJK confined to exactly
+   the 8 documented residue files — nuan-nuan chapters 02, 04, 05, 12, 13,
+   15 and spring-and-autumn chapters 20, 30.
