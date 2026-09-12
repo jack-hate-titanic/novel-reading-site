@@ -131,7 +131,9 @@ boxHeight = window.innerHeight − boxDocumentTop − BOTTOM_GUTTER (32px)
 
 `boxDocumentTop` = `box.getBoundingClientRect().top + window.scrollY`,
 measured during the measure pass (the site header is normal document flow,
-not sticky). The box is `overflow-y: auto` so a single over-tall segment
+not sticky). The box has **no minimum height floor**: on short viewports it
+shrinks to the available space instead of exceeding the screen. The box is
+`overflow-y: auto` so a single over-tall segment
 (huge font, long paragraph) scrolls internally.
 
 **Mobile (≤900px):** the grid already collapses to one column; the content
@@ -157,8 +159,8 @@ measured heights are 0 (jsdom / styles not yet applied), `packPagesByHeight`
 falls back to a single page containing every segment.
 
 Page numbers are **font-relative** (small font ⇒ more pages). Position
-memory is **content-anchored** (segment index); the displayed
-`Page X of Y` is derived at render time.
+memory is **content-anchored** (segment index); the compact indicator
+`X / Y` (hover title `Page X of Y`) is derived at render time.
 
 ## Font Size Control
 
@@ -204,8 +206,12 @@ memory is **content-anchored** (segment index); the displayed
 Control bar pinned at the bottom of the page box:
 
 ```
-[ A− ] [ A+ ]    [ ← Previous ]  Page X of Y  [ Next → ]
+[ A− ] [ A+ ]    [ ← Previous ]  X / Y  [ Next → ]
 ```
+
+The bar stays on a single line at every width (`flex-wrap: nowrap`,
+compact `X / Y` indicator). Below 520px the button words hide, leaving
+arrow-only `←` / `→` buttons that keep their `aria-label`s.
 
 - Next on the last page → `nextHref` (next chapter, page 1).
 - Previous on the first page → `previousHref?s={prevChapterDisplayCount}`

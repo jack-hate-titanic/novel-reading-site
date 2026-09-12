@@ -63,6 +63,7 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.restoreAllMocks();
+  vi.unstubAllGlobals();
   pushMock.mockReset();
 });
 
@@ -70,10 +71,20 @@ describe("PaginatedReader", () => {
   it("packs two segments per page and shows Page 1 of 3", () => {
     render(<PaginatedReader {...defaultProps()} />);
 
-    expect(screen.getByText("Page 1 of 3")).toBeInTheDocument();
+    expect(screen.getByText("1 / 3")).toBeInTheDocument();
     expect(screen.getByText("Segment 1")).toBeInTheDocument();
     expect(screen.getByText("Segment 2")).toBeInTheDocument();
     expect(screen.queryByText("Segment 5")).not.toBeInTheDocument();
+  });
+
+  it("caps the box height to a short viewport instead of a fixed floor", () => {
+    vi.stubGlobal("innerHeight", 280);
+    const { container } = render(<PaginatedReader {...defaultProps()} />);
+
+    // 280 - 0 (box top) - 32 (bottom gutter) = 248: the box never grows
+    // past the visible screen, so pages fit short viewports too.
+    expect(container.querySelector("section")).toHaveStyle({ height: "248px" });
+    expect(screen.getByText("1 / 5")).toBeInTheDocument();
   });
 
   it("saves the anchor for the opened page on mount", () => {
@@ -88,9 +99,9 @@ describe("PaginatedReader", () => {
     const user = userEvent.setup();
     render(<PaginatedReader {...defaultProps()} />);
 
-    await user.click(screen.getByRole("button", { name: "Next →" }));
+    await user.click(screen.getByRole("button", { name: "Next page" }));
 
-    expect(screen.getByText("Page 2 of 3")).toBeInTheDocument();
+    expect(screen.getByText("2 / 3")).toBeInTheDocument();
     expect(window.location.search).toBe("?s=3");
     expect(getBookProgress("nuan-nuan")?.lastSegmentIndex).toBe(2);
   });
@@ -100,14 +111,14 @@ describe("PaginatedReader", () => {
 
     fireEvent.keyDown(window, { key: "ArrowRight" });
 
-    expect(screen.getByText("Page 2 of 3")).toBeInTheDocument();
+    expect(screen.getByText("2 / 3")).toBeInTheDocument();
   });
 
   it("restores the page from the ?s= URL parameter", () => {
     window.history.replaceState(null, "", "/read/nuan-nuan/chapter-01?s=5");
     render(<PaginatedReader {...defaultProps()} />);
 
-    expect(screen.getByText("Page 3 of 3")).toBeInTheDocument();
+    expect(screen.getByText("3 / 3")).toBeInTheDocument();
     expect(screen.getByText("Segment 5")).toBeInTheDocument();
     expect(screen.queryByText("Segment 1")).not.toBeInTheDocument();
     expect(getBookProgress("nuan-nuan")?.lastSegmentIndex).toBe(4);
@@ -117,7 +128,7 @@ describe("PaginatedReader", () => {
     saveBookProgress("nuan-nuan", "chapter-01", 2);
     render(<PaginatedReader {...defaultProps()} />);
 
-    expect(screen.getByText("Page 2 of 3")).toBeInTheDocument();
+    expect(screen.getByText("2 / 3")).toBeInTheDocument();
   });
 
   it("navigates to the next chapter from the last page", async () => {
@@ -126,9 +137,9 @@ describe("PaginatedReader", () => {
       <PaginatedReader {...defaultProps()} nextHref="/read/nuan-nuan/chapter-02" />,
     );
 
-    await user.click(screen.getByRole("button", { name: "Next →" }));
-    await user.click(screen.getByRole("button", { name: "Next →" }));
-    await user.click(screen.getByRole("button", { name: "Next →" }));
+    await user.click(screen.getByRole("button", { name: "Next page" }));
+    await user.click(screen.getByRole("button", { name: "Next page" }));
+    await user.click(screen.getByRole("button", { name: "Next page" }));
 
     expect(pushMock).toHaveBeenCalledWith("/read/nuan-nuan/chapter-02");
   });
@@ -143,7 +154,7 @@ describe("PaginatedReader", () => {
       />,
     );
 
-    await user.click(screen.getByRole("button", { name: "← Previous" }));
+    await user.click(screen.getByRole("button", { name: "Previous page" }));
 
     expect(pushMock).toHaveBeenCalledWith("/read/nuan-nuan/chapter-00?s=10");
   });
@@ -151,13 +162,13 @@ describe("PaginatedReader", () => {
   it("disables boundary buttons when there is no chapter to go to", () => {
     render(<PaginatedReader {...defaultProps()} />);
 
-    expect(screen.getByRole("button", { name: "← Previous" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Previous page" })).toBeDisabled();
 
     fireEvent.keyDown(window, { key: "ArrowRight" });
     fireEvent.keyDown(window, { key: "ArrowRight" });
 
-    expect(screen.getByText("Page 3 of 3")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Next →" })).toBeDisabled();
+    expect(screen.getByText("3 / 3")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Next page" })).toBeDisabled();
   });
 
   it("adjusts and persists the font size", async () => {

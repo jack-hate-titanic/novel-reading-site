@@ -29,7 +29,6 @@ import styles from "./reader-page.module.css";
 const BOTTOM_GUTTER = 32;
 const BOX_INNER_GAP = 12;
 const SEGMENT_GAP = 18;
-const MIN_BOX_HEIGHT = 320;
 const FONT_LABELS = ["S", "M", "L", "XL"] as const;
 
 // useLayoutEffect warns when server-rendered; the reader SSRs the full
@@ -95,14 +94,13 @@ export function PaginatedReader({
     const boxTop = box.getBoundingClientRect().top + window.scrollY;
     lastBoxTop.current = boxTop;
 
+    // Fit the viewport exactly — no minimum floor, so short screens get a
+    // smaller box instead of a page taller than the visible area.
     const fullBoxHeight = Math.max(
       window.innerHeight - boxTop - BOTTOM_GUTTER,
-      MIN_BOX_HEIGHT,
+      0,
     );
-    const packHeight = Math.max(
-      fullBoxHeight - barHeight - BOX_INNER_GAP,
-      120,
-    );
+    const packHeight = Math.max(fullBoxHeight - barHeight - BOX_INNER_GAP, 0);
 
     setBoxHeight(fullBoxHeight);
     setPages(packPagesByHeight(heights, packHeight, SEGMENT_GAP));
@@ -279,19 +277,26 @@ export function PaginatedReader({
             className={styles.controlButton}
             onClick={goPrevious}
             disabled={currentPage === 0 && !previousHref}
+            aria-label="Previous page"
           >
-            ← Previous
+            <span aria-hidden="true">←</span>
+            <span className={styles.buttonWord}>Previous</span>
           </button>
-          <span className={styles.pageIndicator}>
-            Page {currentPage + 1} of {pageCount}
+          <span
+            className={styles.pageIndicator}
+            title={`Page ${currentPage + 1} of ${pageCount}`}
+          >
+            {currentPage + 1} / {pageCount}
           </span>
           <button
             type="button"
             className={styles.controlButton}
             onClick={goNext}
             disabled={pages !== null && currentPage >= pageCount - 1 && !nextHref}
+            aria-label="Next page"
           >
-            Next →
+            <span className={styles.buttonWord}>Next</span>
+            <span aria-hidden="true">→</span>
           </button>
         </div>
       </div>

@@ -72,7 +72,6 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-height: 320px;
 }
 
 .pageScroll {
@@ -86,31 +85,37 @@
 
 .controlBar {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 10px 16px;
+  gap: 8px;
+  padding: 8px 12px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--card-glass);
+  min-width: 0;
 }
 
 .fontControls,
 .pageControls {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  min-width: 0;
 }
 
 .controlButton {
-  padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: transparent;
   color: var(--ink);
   font-family: inherit;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .controlButton:hover:not(:disabled) {
@@ -133,6 +138,23 @@
 .pageIndicator {
   color: var(--ink-soft);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  /* Keep the control bar on a single line on phones: arrow-only buttons. */
+  .buttonWord {
+    display: none;
+  }
+
+  .controlBar {
+    gap: 6px;
+    padding: 6px 10px;
+  }
+
+  .controlButton {
+    padding: 6px 10px;
+  }
 }
 
 @media (max-width: 900px) {
