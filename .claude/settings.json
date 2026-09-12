@@ -1,8 +1,32 @@
 {
   "permissions": {
     "allow": [
+      "Write(.claude/skills/**)",
+      "Write(src/**)",
+      "Write(docs/**)",
       "Bash(npm run *)",
-      "Bash(echo \"=== lint exit: $? ===\")"
+      "Bash(git rm:*)",
+      "Bash(curl -s http://localhost:3000*)",
+      "Bash(curl http://localhost:3000*)",
+      "Bash(git pull:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npm run:*)",
+      "Bash(npm exec:*)",
+      "Bash(node \"/home/wson/code/blog/node_modules/vuepress/bin/vuepress.js\" dev docs)",
+      "Bash(rm -rf \"/home/wson/code/blog/node_modules\")",
+      "Bash(npm install:*)",
+      "Bash(node -e \"const p=require\\('/home/wson/code/blog/package.json'\\); console.log\\(JSON.stringify\\(p.devDependencies||{}, null, 2\\)\\)\")",
+      "Bash(npm add:*)",
+      "Bash(node -e \"import\\('/home/wson/code/blog/docs/.vuepress/config.js'\\).then\\(async \\(m\\)=>{ let cfg = m.default ?? m; if \\(typeof cfg === 'function'\\) cfg = await cfg\\(\\); console.log\\('type', typeof cfg\\); console.log\\('keys', Object.keys\\(cfg\\)\\); console.log\\('bundler', cfg.bundler\\); console.log\\('theme', cfg.theme\\); }\\).catch\\(err=>{ console.error\\(err\\); process.exit\\(1\\); }\\)\")",
+      "Bash(node \"/home/wson/code/blog/node_modules/vuepress/bin/vuepress-vite.js\" dev docs)",
+      "Bash(node -e \"import\\('file:///home/wson/code/blog/node_modules/@vuepress/cli/dist/index.js'\\).then\\(async \\(m\\)=>{ const { resolveUserConfig, resolveConfig } = m; const uc = await resolveUserConfig\\({ config: '/home/wson/code/blog/docs/.vuepress/config.js' }\\); console.log\\('user config keys', Object.keys\\(uc\\)\\); console.log\\('bundler', uc.bundler\\); console.log\\('theme', uc.theme\\); }\\).catch\\(err=>{ console.error\\(err\\); process.exit\\(1\\); }\\)\")",
+      "Bash(node -e \"import\\('file:///home/wson/code/blog/node_modules/.pnpm/@vuepress+cli@2.0.0-rc.28_@vue+compiler-sfc@3.5.32/node_modules/@vuepress/cli/dist/index.js'\\).then\\(async \\(m\\)=>{ const uc = await m.resolveUserConfig\\({ config: '/home/wson/code/blog/docs/.vuepress/config.js' }\\); console.log\\('user config keys', Object.keys\\(uc\\)\\); console.log\\('bundler', uc.bundler\\); console.log\\('theme', uc.theme\\); }\\).catch\\(err=>{ console.error\\(err\\); process.exit\\(1\\); }\\)\")",
+      "Bash(node -e \"import\\('file:///home/wson/code/blog/node_modules/.pnpm/@vuepress+cli@2.0.0-rc.28_@vue+compiler-sfc@3.5.32/node_modules/@vuepress/cli/dist/index.js'\\).then\\(async \\(m\\)=>{ const r = await m.resolveConfig\\({ sourceDir: 'docs', cliOptions: {}, defaultAppConfig: {} }\\); console.log\\('appConfig keys', Object.keys\\(r.appConfig||{}\\)\\); console.log\\('appConfig.bundler', r.appConfig?.bundler\\); console.log\\('appConfig.theme', r.appConfig?.theme\\); console.log\\('userConfigPlugin keys', Object.keys\\(r.userConfigPlugin||{}\\)\\); }\\).catch\\(err=>{ console.error\\(err\\); process.exit\\(1\\); }\\)\")",
+      "Bash(node -e \"import\\('file:///home/wson/code/blog/node_modules/.pnpm/@vuepress+cli@2.0.0-rc.28_@vue+compiler-sfc@3.5.32/node_modules/@vuepress/cli/dist/index.js'\\).then\\(async \\(m\\)=>{ const { userConfig, userConfigPath } = await m.resolveUserConfig\\({ cliAppConfigSource: '/home/wson/code/blog/docs' }\\); console.log\\('userConfigPath', userConfigPath\\); console.log\\('userConfig keys', Object.keys\\(userConfig||{}\\)\\); console.log\\('bundler', userConfig?.bundler\\); console.log\\('theme', userConfig?.theme\\); }\\).catch\\(err=>{ console.error\\(err\\); process.exit\\(1\\); }\\)\")",
+      "Bash(node -e \"import\\('file:///home/wson/code/blog/docs/.vuepress/config.js'\\).then\\(async \\(m\\)=>{ console.log\\('module keys', Object.keys\\(m\\)\\); console.log\\('default type', typeof m.default\\); const v = m.default; console.log\\('default keys', v && typeof v === 'object' ? Object.keys\\(v\\) : 'n/a'\\); }\\).catch\\(err=>{ console.error\\(err\\); process.exit\\(1\\); }\\)\")",
+      "Bash(curl -sL \"https://api.github.com/repos/langchain-ai/langchainjs/contents/libs/providers/langchain-openai/src\")"
     ]
   }
 }
