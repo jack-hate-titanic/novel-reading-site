@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { ReaderSegment } from "@/components/reader/reader-segment";
-import { SaveProgressTracker } from "@/components/reading-progress/save-progress-tracker";
+import { PaginatedReader } from "@/components/reader/paginated-reader";
+import { getDisplaySegments } from "@/lib/content/english-text";
 import type { Book, Chapter } from "@/lib/content/types";
 import styles from "./reader-page.module.css";
 
@@ -9,38 +9,45 @@ export function ReaderPage({
   chapter,
   previousHref,
   nextHref,
+  previousChapterDisplayCount,
 }: {
   book: Book;
   chapter: Chapter;
   previousHref: string | null;
   nextHref: string | null;
+  previousChapterDisplayCount: number;
 }) {
+  const displaySegments = getDisplaySegments(chapter.segments);
+
   return (
     <div className={styles.page}>
-      <SaveProgressTracker
-        bookSlug={book.slug}
-        chapterSlug={chapter.slug}
-        totalSegments={chapter.segments.length}
-      />
       <aside className={styles.sidebar}>
         <p className={styles.sidebarLabel}>{book.readingModeLabel}</p>
         <h1>{chapter.title}</h1>
         <p>{chapter.summary}</p>
         <p className={styles.progress}>
-          Chapter {chapter.order} · {chapter.segments.length} segments
+          Chapter {chapter.order} · {displaySegments.length} segments
         </p>
         <p className={styles.savedIndicator}>Progress auto-saved</p>
         <div className={styles.navLinks}>
-          {previousHref ? <Link href={previousHref}>Previous chapter</Link> : <span />}
+          {previousHref ? (
+            <Link href={previousHref}>Previous chapter</Link>
+          ) : (
+            <span />
+          )}
           {nextHref ? <Link href={nextHref}>Next chapter</Link> : <span />}
         </div>
       </aside>
 
-      <section className={styles.content}>
-        {chapter.segments.map((segment, index) => (
-          <ReaderSegment key={segment.id} index={index + 1} segment={segment} />
-        ))}
-      </section>
+      <PaginatedReader
+        key={chapter.slug}
+        bookSlug={book.slug}
+        chapterSlug={chapter.slug}
+        segments={displaySegments}
+        previousHref={previousHref}
+        nextHref={nextHref}
+        previousChapterDisplayCount={previousChapterDisplayCount}
+      />
     </div>
   );
 }
